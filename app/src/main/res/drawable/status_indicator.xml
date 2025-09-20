@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Available Status -->
+    <item android:state_selected="true">
+        <shape android:shape="oval">
+            <solid android:color="#10B981" />
+            <size android:width="8dp" android:height="8dp" />
+        </shape>
+    </item>
+
+    <!-- Sold Out Status -->
+    <item android:state_pressed="true">
+        <shape android:shape="oval">
+            <solid android:color="#EF4444" />
+            <size android:width="8dp" android:height="8dp" />
+        </shape>
+    </item>
+
+    <!-- Default (Available) -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#10B981" />
+            <size android:width="8dp" android:height="8dp" />
+        </shape>
+    </item>
+
+</selector>
