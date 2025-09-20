@@ -12,6 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VC_Eats">
         <activity
+            android:name=".AnalyticsReportsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OrderDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MenuManagementActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StaffDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
