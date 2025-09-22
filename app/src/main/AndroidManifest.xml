@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VC_Eats">
         <activity
+            android:name=".CustomerMenuActivity"
+            android:exported="false" />
+        <activity
             android:name=".AnalyticsReportsActivity"
             android:exported="false" />
         <activity
