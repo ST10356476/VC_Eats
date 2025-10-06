@@ -1,15 +1,18 @@
 package com.varsitycollege.vc_eats.models
 
 data class MenuItem(
-    val id: String = "",
-    val name: String = "",
-    val description: String = "",
-    val price: Double = 0.0,
-    val category: String = "BREAKFAST", // BREAKFAST, LUNCH, BEVERAGES, SNACKS
-    val imageUrl: String = "",
-    val isAvailable: Boolean = true,
-    val isSpecial: Boolean = false,
-    val allergens: List<String> = emptyList(),
-    val calories: Int = 0,
-    val preparationTime: Int = 15 // minutes
-)
+    var id: String = "",
+    var name: String = "",
+    var description: String = "",
+    var price: Double = 0.0,
+    var category: String = "",
+    var isAvailable: Boolean = true,
+    var isSpecial: Boolean = false,
+    var allergens: List<String> = emptyList(),
+    var imageUrl: String = "",
+    var createdAt: Long = 0L,
+    var updatedAt: Long = 0L
+) {
+    // No-argument constructor for Firebase
+    constructor() : this("", "", "", 0.0, "", true, false, emptyList(), "", 0L, 0L)
+}
