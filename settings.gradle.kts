@@ -10,7 +10,12 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
     }
+    // Give the Google Services plugin its version so the `id(...)` in app/build.gradle.kts resolves
+    plugins {
+        id("com.google.gms.google-services") version "4.4.2"
+    }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
