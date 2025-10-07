@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/white"
-            app:title="Settings"
+            app:title="@string/settings_title"
             app:titleTextColor="@android:color/black" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -57,7 +57,7 @@
                         android:layout_height="60dp"
                         android:background="@drawable/circle_background"
                         android:gravity="center"
-                        android:text="JD"
+                        android:text="@string/user_initials"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:textColor="@android:color/white" />
@@ -73,7 +73,7 @@
                             android:id="@+id/tvUserName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Loading..."
+                            android:text="@string/loading"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="@android:color/black" />
@@ -82,7 +82,7 @@
                             android:id="@+id/tvUserEmail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Loading..."
+                            android:text="@string/loading"
                             android:textSize="14sp"
                             android:textColor="#6B7280"
                             android:layout_marginTop="2dp" />
@@ -91,7 +91,7 @@
                             android:id="@+id/chipStudentId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="User ID: Loading..."
+                            android:text="@string/user_id_loading"
                             android:textSize="11sp"
                             android:textColor="@android:color/white"
                             app:chipBackgroundColor="#10B981"
@@ -135,7 +135,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Account"
+                            android:text="@string/account"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:textColor="@android:color/black" />
@@ -162,7 +162,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Profile Information"
+                                android:text="@string/profile_information"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
                                 android:textColor="@android:color/black" />
@@ -170,7 +170,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="View and edit your personal details"
+                                android:text="@string/view_edit_personal_details"
                                 android:textSize="12sp"
                                 android:textColor="#6B7280"
                                 android:layout_marginTop="4dp" />
@@ -215,7 +215,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Security"
+                            android:text="@string/security"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:textColor="@android:color/black" />
@@ -237,7 +237,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Biometric Authentication"
+                                android:text="@string/biometric_authentication"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
                                 android:textColor="@android:color/black" />
@@ -245,7 +245,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Use fingerprint or face recognition to sign in"
+                                android:text="@string/use_fingerprint_face"
                                 android:textSize="12sp"
                                 android:textColor="#6B7280"
                                 android:layout_marginTop="4dp" />
@@ -297,7 +297,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Notifications"
+                            android:text="@string/notifications"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:textColor="@android:color/black" />
@@ -321,7 +321,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Order Updates"
+                                android:text="@string/order_updates"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
                                 android:textColor="@android:color/black" />
@@ -329,7 +329,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Get notified when your order status changes"
+                                android:text="@string/get_notified_order_status"
                                 android:textSize="12sp"
                                 android:textColor="#6B7280"
                                 android:layout_marginTop="4dp" />
@@ -362,7 +362,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Promotions and  Offers"
+                                android:text="@string/promotions_offers"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
                                 android:textColor="@android:color/black" />
@@ -370,7 +370,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Receive alerts about special deals and discounts"
+                                android:text="@string/receive_special_deals"
                                 android:textSize="12sp"
                                 android:textColor="#6B7280"
                                 android:layout_marginTop="4dp" />
@@ -403,7 +403,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Daily Specials"
+                                android:text="@string/daily_specials"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
                                 android:textColor="@android:color/black" />
@@ -411,7 +411,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Be notified about today's featured meals"
+                                android:text="@string/notified_featured_meals"
                                 android:textSize="12sp"
                                 android:textColor="#6B7280"
                                 android:layout_marginTop="4dp" />
@@ -443,7 +443,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Push Notifications"
+                                android:text="@string/push_notifications"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
                                 android:textColor="@android:color/black" />
@@ -451,7 +451,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Allow notifications even when app is closed"
+                                android:text="@string/allow_notifications_closed"
                                 android:textSize="12sp"
                                 android:textColor="#6B7280"
                                 android:layout_marginTop="4dp" />
@@ -503,7 +503,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="App Preferences"
+                            android:text="@string/app_preferences"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:textColor="@android:color/black" />
@@ -539,7 +539,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Language"
+                                    android:text="@string/language"
                                     android:textSize="14sp"
                                     android:textStyle="bold"
                                     android:textColor="@android:color/black" />
@@ -547,7 +547,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Choose your preferred language"
+                                    android:text="@string/choose_preferred_language"
                                     android:textSize="12sp"
                                     android:textColor="#6B7280"
                                     android:layout_marginTop="4dp" />
@@ -558,7 +558,7 @@
                                 android:id="@+id/tvSelectedLanguage"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="English"
+                                android:text="@string/english"
                                 android:textSize="14sp"
                                 android:textColor="#6B7280"
                                 android:layout_marginEnd="8dp" />
@@ -590,7 +590,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Offline Mode"
+                                android:text="@string/offline_mode"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
                                 android:textColor="@android:color/black" />
@@ -598,7 +598,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Allow browsing menus without internet connection"
+                                android:text="@string/browse_menus_without_internet"
                                 android:textSize="12sp"
                                 android:textColor="#6B7280"
                                 android:layout_marginTop="4dp" />
@@ -650,7 +650,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="About"
+                            android:text="@string/about"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:textColor="@android:color/black" />
@@ -668,14 +668,14 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="App Version"
+                            android:text="@string/app_version"
                             android:textSize="14sp"
                             android:textColor="@android:color/black" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2.1.0"
+                            android:text="@string/app_version_value"
                             android:textSize="14sp"
                             android:textColor="#6B7280" />
 
@@ -691,14 +691,14 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Last Updated"
+                            android:text="@string/last_updated"
                             android:textSize="14sp"
                             android:textColor="@android:color/black" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Jan 15, 2025"
+                            android:text="@string/last_updated_value"
                             android:textSize="14sp"
                             android:textColor="#6B7280" />
 
@@ -713,7 +713,7 @@
                 android:id="@+id/btnSignOut"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="Sign Out"
+                android:text="@string/sign_out"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F7FB">
+    android:background="#F6F7FB"
+    tools:context=".AlertsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +27,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@android:color/transparent"
-                android:contentDescription="Back"
+                android:contentDescription="@string/cd_back"
                 android:scaleType="centerInside"
                 android:src="@drawable/undo"
                 tools:ignore="TouchTargetSizeCheck" />
@@ -34,7 +35,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Notifications"
+                android:text="@string/notifications"
                 android:textColor="#111827"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -49,7 +50,7 @@
                 android:paddingRight="8dp"
                 android:paddingTop="2dp"
                 android:paddingBottom="2dp"
-                android:text="0"
+                android:text="@string/zero"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -65,7 +66,7 @@
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
-                android:text="Mark all read"
+                android:text="@string/mark_all_read"
                 android:textAllCaps="false"
                 android:textSize="14sp"
                 app:icon="@drawable/circle_blue"
@@ -96,7 +97,8 @@
                     style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="All (3)"
+                    android:text="@string/all_filter"
+                    tools:text="All (3)"
                     android:textAllCaps="false"
                     android:textStyle="bold"
                     tools:ignore="TouchTargetSizeCheck" />
@@ -106,7 +108,8 @@
                     style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Unread (2)"
+                    android:text="@string/unread_filter"
+                    tools:text="Unread (2)"
                     android:textAllCaps="false"
                     android:textStyle="bold"
                     tools:ignore="TouchTargetSizeCheck" />

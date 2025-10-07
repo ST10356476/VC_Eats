@@ -54,7 +54,7 @@
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:src="@drawable/logo"
-                                android:contentDescription="Logo"
+                                android:contentDescription="@string/cd_logo"
                                 android:scaleType="centerInside"
                                 android:background="#DC2626"
                                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
@@ -68,7 +68,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Varsity College"
+                                    android:text="@string/varsity_college"
                                     android:textSize="18sp"
                                     android:textStyle="bold"
                                     android:textColor="@android:color/black" />
@@ -76,7 +76,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Cafeteria"
+                                    android:text="@string/cafeteria"
                                     android:textSize="14sp"
                                     android:textColor="#10B981" />
 
@@ -94,11 +94,10 @@
                                 android:layout_width="44dp"
                                 android:layout_height="44dp"
                                 android:background="@android:color/transparent"
-                                android:contentDescription="Cart"
+                                android:contentDescription="@string/cd_cart"
                                 android:src="@drawable/cart"
                                 android:scaleType="centerInside"
                                 tools:ignore="TouchTargetSizeCheck" />
-
 
                         </FrameLayout>
 
@@ -115,7 +114,7 @@
                             android:id="@+id/tvWelcomeMessage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Welcome back!"
+                            android:text="@string/welcome_back"
                             android:textSize="22sp"
                             android:textStyle="bold"
                             android:textColor="@android:color/black"
@@ -124,7 +123,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="What would you like to order today?"
+                            android:text="@string/what_order_today"
                             android:textSize="14sp"
                             android:textColor="#6B7280" />
 
@@ -134,7 +133,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Categories"
+                        android:text="@string/categories"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@android:color/black"
@@ -179,7 +178,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Breakfast"
+                                    android:text="@string/breakfast"
                                     android:textSize="12sp"
                                     android:textStyle="bold"
                                     android:textColor="#DC2626"
@@ -219,7 +218,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Lunch"
+                                    android:text="@string/lunch"
                                     android:textSize="12sp"
                                     android:textStyle="bold"
                                     android:textColor="@android:color/black"
@@ -259,7 +258,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Beverages"
+                                    android:text="@string/beverages"
                                     android:textSize="12sp"
                                     android:textStyle="bold"
                                     android:textColor="@android:color/black"
@@ -298,7 +297,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Snacks"
+                                    android:text="@string/snacks"
                                     android:textSize="12sp"
                                     android:textStyle="bold"
                                     android:textColor="@android:color/black"
@@ -332,7 +331,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Breakfast Menu"
+                            android:text="@string/menu"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             android:textColor="@android:color/black" />
@@ -346,7 +345,7 @@
                             android:paddingTop="4dp"
                             android:paddingEnd="8dp"
                             android:paddingBottom="4dp"
-                            android:text="0 items"
+                            android:text="@string/zero_items"
                             android:textColor="@android:color/white"
                             android:textSize="12sp"
                             app:cornerRadius="12dp"
@@ -383,7 +382,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="No items available yet"
+                            android:text="@string/no_items_available_yet"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="@android:color/black"
@@ -392,7 +391,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Our kitchen staff is preparing the menu.\nCheck back soon!"
+                            android:text="@string/preparing_menu_msg"
                             android:textSize="14sp"
                             android:textColor="#6B7280"
                             android:textAlignment="center" />
@@ -439,7 +438,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Menu"
+                android:text="@string/menu"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="#DC2626" />
@@ -467,7 +466,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Orders"
+                android:text="@string/orders"
                 android:textSize="12sp"
                 android:textColor="#9CA3AF" />
 
@@ -513,7 +512,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Alerts"
+                android:text="@string/alerts"
                 android:textSize="12sp"
                 android:textColor="#9CA3AF" />
 
@@ -540,7 +539,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Settings"
+                android:text="@string/settings"
                 android:textSize="12sp"
                 android:textColor="#9CA3AF" />
 

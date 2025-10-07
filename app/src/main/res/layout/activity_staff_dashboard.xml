@@ -16,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:paddingBottom="80dp">
 
             <!-- Header Section -->
             <LinearLayout
@@ -645,6 +646,23 @@
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+
+                <!-- Sign Out Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnStaffSignOut"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="Sign Out"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:icon="@drawable/ic_logout"
+                    app:iconGravity="textStart"
+                    app:iconTint="@android:color/white"
+                    app:backgroundTint="#EF4444"
+                    app:cornerRadius="12dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="32dp" />
 
             </LinearLayout>
 

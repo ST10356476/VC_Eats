@@ -1,21 +1,34 @@
 package com.varsitycollege.vc_eats
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.varsitycollege.vc_eats.adapters.CartAdapter
 import com.varsitycollege.vc_eats.databinding.ActivityCustomerMenuBinding
+import com.varsitycollege.vc_eats.databinding.DialogCartBinding
 import com.varsitycollege.vc_eats.firebase.FirebaseManager
 import com.varsitycollege.vc_eats.models.MenuItem
+import com.varsitycollege.vc_eats.utils.CartManager
+import com.varsitycollege.vc_eats.utils.LocaleHelper
 import kotlinx.coroutines.launch
+import android.widget.Toast
 
 class CustomerMenuActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCustomerMenuBinding
     private val firebaseManager = FirebaseManager.getInstance()
     private var currentCategory = "Breakfast"
+
+    override fun attachBaseContext(newBase: Context) {
+        val languageCode = LocaleHelper.getLanguage(newBase)
+        val context = LocaleHelper.setLocale(newBase, languageCode)
+        super.attachBaseContext(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +48,11 @@ class CustomerMenuActivity : AppCompatActivity() {
                 val user = firebaseManager.getUser(userId)
                 if (user != null) {
                     val firstName = user.name.split(" ").firstOrNull() ?: "there"
-                    binding.tvWelcomeMessage.text = "Welcome back, $firstName!"
+                    binding.tvWelcomeMessage.text = "${getString(R.string.welcome_back)}, $firstName!"
                 }
             }
+        } else {
+            binding.tvWelcomeMessage.text = getString(R.string.welcome_back)
         }
     }
 
@@ -62,11 +77,74 @@ class CustomerMenuActivity : AppCompatActivity() {
             selectCategory("Snacks", binding.cardSnacks)
         }
 
-        // Cart Button
+        // Cart Button - NOW FUNCTIONAL
         binding.btnCart.setOnClickListener {
-            // Navigate to Cart Activity (implement when ready)
-            // startActivity(Intent(this, CartActivity::class.java))
+            showCartDialog()
         }
+    }
+
+    private fun showCartDialog() {
+        val dialogBinding = DialogCartBinding.inflate(layoutInflater)
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogBinding.root)
+            .create()
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        fun updateCartUI() {
+            val cartItems = CartManager.getItems()
+
+            if (cartItems.isEmpty()) {
+                // Show empty state
+                dialogBinding.layoutEmpty.visibility = View.VISIBLE
+                dialogBinding.layoutFilled.visibility = View.GONE
+                dialogBinding.badgeCount.visibility = View.GONE
+            } else {
+                // Show filled state
+                dialogBinding.layoutEmpty.visibility = View.GONE
+                dialogBinding.layoutFilled.visibility = View.VISIBLE
+                dialogBinding.badgeCount.visibility = View.VISIBLE
+
+                // Update badge count
+                dialogBinding.badgeCount.text = CartManager.getItemCount().toString()
+
+                // Update summary
+                dialogBinding.tvSubtotal.text = "R%.2f".format(CartManager.getSubtotal())
+                dialogBinding.tvFee.text = "R%.2f".format(CartManager.getServiceFee())
+                dialogBinding.tvTotal.text = "R%.2f".format(CartManager.getTotal())
+
+                // Update checkout button text
+                dialogBinding.btnCheckout.text = "Proceed to Payment - R%.2f".format(CartManager.getTotal())
+
+                // Update adapter
+                (dialogBinding.recyclerCart.adapter as? CartAdapter)?.updateItems(cartItems)
+            }
+        }
+
+        // Setup RecyclerView
+        val adapter = CartAdapter(CartManager.getItems()) {
+            updateCartUI()
+        }
+
+        dialogBinding.recyclerCart.layoutManager = LinearLayoutManager(this)
+        dialogBinding.recyclerCart.adapter = adapter
+
+        // Close button
+        dialogBinding.btnClose.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        // Checkout button
+        dialogBinding.btnCheckout.setOnClickListener {
+            // TODO: Navigate to payment/checkout
+            Toast.makeText(this, "Proceeding to payment...", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+
+        // Initial UI update
+        updateCartUI()
+
+        dialog.show()
     }
 
     private fun setupBottomNavigation() {
@@ -102,8 +180,15 @@ class CustomerMenuActivity : AppCompatActivity() {
         selectedCard.strokeColor = getColor(R.color.category_selected_stroke)
         selectedCard.strokeWidth = 4
 
-        // Update category title
-        binding.tvCategoryTitle.text = "$category Menu"
+        // Update category title with translated category name
+        val categoryTitle = when (category) {
+            "Breakfast" -> getString(R.string.breakfast)
+            "Lunch" -> getString(R.string.lunch)
+            "Beverages" -> getString(R.string.beverages)
+            "Snacks" -> getString(R.string.snacks)
+            else -> category
+        }
+        binding.tvCategoryTitle.text = "$categoryTitle ${getString(R.string.menu)}"
 
         // Load menu items for selected category
         loadMenuItems(category)
@@ -141,8 +226,9 @@ class CustomerMenuActivity : AppCompatActivity() {
                 showMenuItems(filteredItems)
             }
 
-            // Update item count
-            binding.tvItemCount.text = "${filteredItems.size} items"
+            // Update item count with translated text
+            val itemsText = if (filteredItems.size == 1) "item" else "items"
+            binding.tvItemCount.text = "${filteredItems.size} $itemsText"
         }
     }
 

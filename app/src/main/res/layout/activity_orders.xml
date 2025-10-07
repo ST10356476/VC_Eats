@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F7FB">
+    android:background="#F6F7FB"
+    tools:context=".OrdersActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!-- Header Bar -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="56dp"
@@ -26,7 +28,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@android:color/transparent"
-                android:contentDescription="Back"
+                android:contentDescription="@string/cd_back"
                 android:scaleType="centerInside"
                 android:src="@drawable/undo"
                 tools:ignore="TouchTargetSizeCheck" />
@@ -35,7 +37,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Your Orders"
+                android:text="@string/your_orders"
                 android:textColor="#111827"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -43,6 +45,7 @@
                 android:paddingStart="4dp" />
         </LinearLayout>
 
+        <!-- Scrollable Content -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -55,10 +58,11 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
+                <!-- Active Orders -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Active Orders"
+                    android:text="@string/active_orders"
                     android:textColor="#0F172A"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -74,16 +78,17 @@
                     android:id="@+id/tvNoActive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No active orders"
+                    android:text="@string/no_active_orders"
                     android:textColor="#6B7280"
                     android:textSize="14sp"
                     android:layout_marginTop="6dp"
                     android:visibility="gone" />
 
+                <!-- Order History -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Order History"
+                    android:text="@string/order_history"
                     android:textColor="#0F172A"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -100,11 +105,12 @@
                     android:id="@+id/tvNoPast"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No past orders"
+                    android:text="@string/no_past_orders"
                     android:textColor="#6B7280"
                     android:textSize="14sp"
                     android:layout_marginTop="6dp"
                     android:visibility="gone" />
+
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

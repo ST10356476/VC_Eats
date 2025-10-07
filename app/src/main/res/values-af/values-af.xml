@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VC_Eats</string>
+
+    <!-- Settings Activity -->
+    <string name="settings">Instellings</string>
+    <string name="account">Rekening</string>
+    <string name="profile_information">Profiel Inligting</string>
+    <string name="view_edit_personal_details">Bekyk en wysig jou persoonlike besonderhede</string>
+    <string name="security">Sekuriteit</string>
+    <string name="biometric_authentication">Biometriese Verifikasie</string>
+    <string name="use_fingerprint_face">Gebruik vingerafdruk of gesig erkenning om in te teken</string>
+    <string name="notifications">Kennisgewings</string>
+    <string name="order_updates">Bestel Opdaterings</string>
+    <string name="get_notified_order_status">Kry kennis wanneer jou bestel status verander</string>
+    <string name="promotions_offers">Promosies en Aanbiedinge</string>
+    <string name="receive_special_deals">Ontvang waarskuwings oor spesiale aanbiedinge en afslag</string>
+    <string name="daily_specials">Daaglikse Spesiale</string>
+    <string name="notified_featured_meals">Kry kennis oor vandag se spesiale maaltye</string>
+    <string name="push_notifications">Stoot Kennisgewings</string>
+    <string name="allow_notifications_closed">Laat kennisgewings toe selfs wanneer app gesluit is</string>
+    <string name="app_preferences">App Voorkeure</string>
+    <string name="language">Taal</string>
+    <string name="choose_preferred_language">Kies jou voorkeur taal</string>
+    <string name="offline_mode">Vanlyn Modus</string>
+    <string name="browse_menus_without_internet">Laat blaai van menu\'s sonder internet konneksie toe</string>
+    <string name="about">Oor</string>
+    <string name="app_version">App Weergawe</string>
+    <string name="last_updated">Laaste Opdatering</string>
+    <string name="sign_out">Teken Uit</string>
+
+    <!-- Toast Messages -->
+    <string name="biometric_enabled">Biometriese verifikasie geaktiveer</string>
+    <string name="biometric_disabled">Biometriese verifikasie gedeaktiveer</string>
+    <string name="offline_mode_enabled">Vanlyn modus geaktiveer</string>
+    <string name="offline_mode_disabled">Vanlyn modus gedeaktiveer</string>
+    <string name="language_changed">Taal verander na %s</string>
+    <string name="user_not_logged_in">Gebruiker nie aangemeld nie</string>
+    <string name="failed_load_user_data">Kon nie gebruiker data laai nie</string>
+
+    <!-- Dialog Messages -->
+    <string name="select_language">Kies Taal</string>
+    <string name="sign_out_title">Teken Uit</string>
+    <string name="sign_out_message">Is jy seker jy wil uitteken?</string>
+    <string name="cancel">Kanselleer</string>
+
+    <!-- Profile Information -->
+    <string name="personal_information">Persoonlike Inligting</string>
+    <string name="full_name">Volledige Naam</string>
+    <string name="email_address">E-pos Adres</string>
+    <string name="student_id">Student ID</string>
+    <string name="phone_number_optional">Telefoonnommer (Opsioneel)</string>
+    <string name="address_optional">Adres (Opsioneel)</string>
+    <string name="save_changes">Stoor Veranderinge</string>
+    <string name="profile_updated">Profiel suksesvol opgedateer</string>
+    <string name="failed_update_profile">Kon nie profiel opdateer nie</string>
+
+    <!-- Validation Messages -->
+    <string name="full_name_required">Volledige naam word vereis</string>
+    <string name="email_required">E-pos word vereis</string>
+    <string name="invalid_email_format">Ongeldige e-pos formaat</string>
+    <string name="student_id_required">Student ID word vereis</string>
+
+    <!-- Customer Menu -->
+    <string name="welcome_back">Welkom terug</string>
+    <string name="what_order_today">Wat wil jy vandag bestel?</string>
+    <string name="categories">Kategorieë</string>
+    <string name="breakfast">Ontbyt</string>
+    <string name="lunch">Middagete</string>
+    <string name="beverages">Drankies</string>
+    <string name="snacks">Peuselhappies</string>
+    <string name="menu">Spyskaart</string>
+    <string name="orders">Bestellings</string>
+    <string name="alerts">Waarskuwings</string>
+
+    <!-- Alert Activity -->
+    <string name="no_unread_notifications">Geen ongelese kennisgewings</string>
+    <string name="no_notifications_yet">Nog geen kennisgewings</string>
+    <string name="notifications_description">Ons sal jou in kennis stel wanneer iets belangriks gebeur</string>
+    <string name="all_filter">Alles (%1$d)</string>
+    <string name="unread_filter">Ongelees (%1$d)</string>
+    <string name="mark_all_read">Merk alles as gelees</string>
+    <string name="settings_title">Instellings</string>
+    <string name="user_initials">JD</string>
+    <string name="loading">Laai...</string>
+    <string name="user_id_loading">Gebruiker-ID: Laai...</string>
+    <string name="view_edit_details">Bekyk en wysig jou persoonlike besonderhede</string>
+    <string name="biometric_auth">Biometriese Verifikasie</string>
+    <string name="biometric_description">Gebruik vingerafdruk of gesigherkenning om aan te meld</string>
+    <string name="order_updates_desc">Ontvang kennisgewings wanneer jou bestellingstatus verander</string>
+    <string name="promotions">Promosies en Aanbiedinge</string>
+    <string name="promotions_desc">Ontvang waarskuwings oor spesiale aanbiedinge en afslag</string>
+    <string name="daily_specials_desc">Word ingelig oor vandag se uitgeligte etes</string>
+    <string name="push_notifications_desc">Laat kennisgewings toe selfs wanneer die toepassing gesluit is</string>
+    <string name="language_desc">Kies jou voorkeurtaal</string>
+    <string name="english">Afrikaans</string>
+    <string name="offline_mode_desc">Laat blaai toe sonder n internetverbinding</string>
+    <string name="app_version_value">2.1.0</string>
+    <string name="last_updated_value">15 Jan 2025</string>
+    <string name="cd_logo">Toep-logo</string>
+    <string name="cd_cart">Mandjie-knoppie</string>
+    <string name="varsity_college">Varsity College</string>
+    <string name="cafeteria">Kafeteria</string>
+    <string name="zero_items">0 items</string>
+    <string name="no_items_available_yet">Geen items beskikbaar nie</string>
+    <string name="preparing_menu_msg">Ons kombuispersoneel berei tans die spyskaart voor.\nKom later weer kyk!</string>
+    <string name="cd_back">Terugknoppie</string>
+    <string name="your_orders">Jou Bestellings</string>
+    <string name="active_orders">Aktiewe Bestellings</string>
+    <string name="no_active_orders">Geen aktiewe bestellings nie</string>
+    <string name="order_history">Bestellingsgeskiedenis</string>
+    <string name="no_past_orders">Geen vorige bestellings nie</string>
+    <string name="zero">0</string>
+    <string name="alert_order_ready_title">Bestel Gereed vir Optel</string>
+    <string name="alert_order_ready_message">Jou Volledige Engelse Ontbyt is gereed by die toonbank.</string>
+    <string name="alert_order_confirmed_title">Bestel Bevestig</string>
+    <string name="alert_order_confirmed_message">Jou bestel #1234 is bevestig en word voorberei deur ons kombuispersoneel.</string>
+    <string name="alert_special_offer_title">Spesiale Aanbieding</string>
+    <string name="alert_special_offer_message">Kry 20% afslag op alle ontbyt items vandag! Geldig tot 11 VM.</string>
+    <string name="view_order">Bekyk Bestel</string>
+    <string name="view_menu">Bekyk Spyskaart</string>
+    <string name="cart_feature_coming_soon">Mandjie funksie kom binnekort!</string>
+
+
+
+</resources>

@@ -44,14 +44,13 @@
                     <!-- Logo -->
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/logo"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="#D12B2B"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
                         android:contentDescription="@string/app_name"
-                        android:padding="20dp"
+                        android:padding="8dp"
                         android:scaleType="centerInside"
-                        android:src="@drawable/logo"
-                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
+                        android:src="@drawable/logo" />
+
 
                     <TextView
                         android:id="@+id/title"
@@ -284,64 +283,6 @@
                         android:textColor="#9CA3AF"
                         android:textSize="13sp" />
 
-                    <!-- Staff Access Section -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:text="STAFF ACCESS"
-                        android:textAlignment="center"
-                        android:textColor="#9CA3AF"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <!-- Staff Login Buttons Row -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnStaffLogin"
-                            style="?attr/materialButtonOutlinedStyle"
-                            android:layout_width="0dp"
-                            android:layout_height="48dp"
-                            android:layout_marginEnd="6dp"
-                            android:layout_weight="1"
-                            android:text="Staff Login"
-                            android:textAllCaps="false"
-                            android:textColor="@android:color/black"
-                            android:textSize="14sp"
-                            app:cornerRadius="8dp"
-                            app:strokeColor="#E5E7EB"
-                            app:strokeWidth="1dp" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnAdminLogin"
-                            style="?attr/materialButtonOutlinedStyle"
-                            android:layout_width="0dp"
-                            android:layout_height="48dp"
-                            android:layout_marginStart="6dp"
-                            android:layout_weight="1"
-                            android:text="Admin Login"
-                            android:textAllCaps="false"
-                            android:textColor="@android:color/black"
-                            android:textSize="14sp"
-                            app:cornerRadius="8dp"
-                            app:strokeColor="#E5E7EB"
-                            app:strokeWidth="1dp" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Staff: Use your institutional email or quick access above"
-                        android:textAlignment="center"
-                        android:textColor="#9CA3AF"
-                        android:textSize="12sp" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
