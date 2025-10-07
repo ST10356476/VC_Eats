@@ -8,16 +8,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import com.varsitycollege.vc_eats.databinding.ActivityLoginBinding
 import com.varsitycollege.vc_eats.viewmodels.LoginState
 import com.varsitycollege.vc_eats.viewmodels.LoginViewModel
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Initialize ViewModel
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
@@ -36,36 +40,42 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupClickListeners() {
         // Sign In Button
-        findViewById<MaterialButton>(R.id.btnSignIn).setOnClickListener {
-            val email = findViewById<TextInputEditText>(R.id.etEmail).text.toString().trim()
-            val password = findViewById<TextInputEditText>(R.id.etPassword).text.toString().trim()
+        binding.btnSignIn.setOnClickListener {
+            val email = binding.etEmail.text.toString().trim()
+            val password = binding.etPassword.text.toString().trim()
 
             if (validateInput(email, password)) {
                 viewModel.signIn(email, password)
             }
         }
 
+        // Sign Up Link
+        binding.tvSignUp.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
+
         // Staff Login Button
-        findViewById<MaterialButton>(R.id.btnStaffLogin).setOnClickListener {
+        binding.btnStaffLogin.setOnClickListener {
             // For now, just navigate to staff dashboard
             // Later you can add staff-specific login
             startActivity(Intent(this, StaffDashboardActivity::class.java))
         }
 
         // Admin Login Button
-        findViewById<MaterialButton>(R.id.btnAdminLogin).setOnClickListener {
+        binding.btnAdminLogin.setOnClickListener {
             // For now, just navigate to staff dashboard
             // Later you can add admin-specific login
             startActivity(Intent(this, StaffDashboardActivity::class.java))
         }
 
         // Google Sign In Button (for later implementation)
-        findViewById<MaterialButton>(R.id.btnGoogle).setOnClickListener {
+        binding.btnGoogle.setOnClickListener {
             Toast.makeText(this, "Google Sign-In coming soon!", Toast.LENGTH_SHORT).show()
         }
 
         // Biometric Button (for later implementation)
-        findViewById<MaterialButton>(R.id.btnBiometric).setOnClickListener {
+        binding.btnBiometric.setOnClickListener {
             Toast.makeText(this, "Biometric login coming soon!", Toast.LENGTH_SHORT).show()
         }
     }
@@ -75,6 +85,11 @@ class LoginActivity : AppCompatActivity() {
             viewModel.loginState.collect { state ->
                 when (state) {
                     is LoginState.Success -> {
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Login successful!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         navigateBasedOnRole(state.userRole)
                     }
                     is LoginState.Error -> {
@@ -90,9 +105,8 @@ class LoginActivity : AppCompatActivity() {
         // Observe loading state to show/hide progress
         lifecycleScope.launch {
             viewModel.isLoading.collect { isLoading ->
-                // You can show/hide a progress bar here
-                findViewById<MaterialButton>(R.id.btnSignIn).isEnabled = !isLoading
-                findViewById<MaterialButton>(R.id.btnSignIn).text = if (isLoading) "Signing In..." else "Sign In"
+                binding.btnSignIn.isEnabled = !isLoading
+                binding.btnSignIn.text = if (isLoading) "Signing In..." else "Sign In"
             }
         }
     }
@@ -104,26 +118,31 @@ class LoginActivity : AppCompatActivity() {
             else -> Intent(this, CustomerMenuActivity::class.java) // Default to customer
         }
 
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish() // Close login activity
     }
 
     private fun validateInput(email: String, password: String): Boolean {
+        // Clear previous errors
+        binding.tilEmail.error = null
+        binding.tilPassword.error = null
+
         when {
             email.isEmpty() -> {
-                findViewById<TextInputEditText>(R.id.etEmail).error = "Email is required"
+                binding.tilEmail.error = "Email is required"
                 return false
             }
             !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
-                findViewById<TextInputEditText>(R.id.etEmail).error = "Please enter a valid email"
+                binding.tilEmail.error = "Please enter a valid email"
                 return false
             }
             password.isEmpty() -> {
-                findViewById<TextInputEditText>(R.id.etPassword).error = "Password is required"
+                binding.tilPassword.error = "Password is required"
                 return false
             }
             password.length < 6 -> {
-                findViewById<TextInputEditText>(R.id.etPassword).error = "Password must be at least 6 characters"
+                binding.tilPassword.error = "Password must be at least 6 characters"
                 return false
             }
             else -> return true

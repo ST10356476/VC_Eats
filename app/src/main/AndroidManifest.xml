@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -14,45 +15,75 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VC_Eats">
-        <activity
-            android:name=".activities.ProfileInformationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.SettingsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AlertsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OrdersActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CustomerMenuActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AnalyticsReportsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OrderDashboardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MenuManagementActivity"
-            android:exported="false" />
-        <activity
-            android:name=".StaffDashboardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" /> <!-- LoginActivity as the launcher/landing page -->
+
+        <!-- LoginActivity as the launcher/landing page -->
         <activity
             android:name=".LoginActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- SignUpActivity -->
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+
+        <activity
+            android:name=".ProfileInformationActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <!-- SettingsActivity - FIXED: removed .activities package -->
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".AlertsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".OrdersActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".CustomerMenuActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".AnalyticsReportsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".OrderDashboardActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".MenuManagementActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".StaffDashboardActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

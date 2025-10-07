@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F7F9FB"
-    tools:context=".LoginActivity">
+    tools:context=".SignUpActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -59,7 +59,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Varsity College Cafeteria"
+                        android:text="Create Your Account"
                         android:textColor="@android:color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -69,15 +69,53 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="Sign in to your account"
+                        android:text="Join Varsity College Cafeteria"
                         android:textColor="#6B7280"
                         android:textSize="14sp" />
+
+                    <!-- Full Name Input -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/nameLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="Full Name"
+                            android:textColor="@android:color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilFullName"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etFullName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@android:drawable/ic_menu_myplaces"
+                                android:drawablePadding="12dp"
+                                android:hint="Name"
+                                android:inputType="textPersonName"
+                                android:paddingStart="16dp"
+                                android:paddingTop="16dp"
+                                android:paddingEnd="16dp"
+                                android:paddingBottom="16dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
 
                     <!-- Email Input -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="32dp"
+                        android:layout_marginTop="20dp"
                         android:orientation="vertical">
 
                         <TextView
@@ -150,47 +188,68 @@
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
-                    <!-- Sign In Button -->
+                    <!-- Confirm Password Input -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/confirmPasswordLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:text="Confirm Password"
+                            android:textColor="@android:color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilConfirmPassword"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:endIconMode="password_toggle">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etConfirmPassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@android:drawable/ic_lock_lock"
+                                android:drawablePadding="12dp"
+                                android:hint="Re-enter your password"
+                                android:inputType="textPassword"
+                                android:paddingStart="16dp"
+                                android:paddingTop="16dp"
+                                android:paddingEnd="16dp"
+                                android:paddingBottom="16dp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <!-- Terms and Conditions Checkbox -->
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/cbTerms"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="I agree to the Terms and Conditions"
+                        android:textColor="#6B7280"
+                        android:textSize="14sp" />
+
+                    <!-- Sign Up Button -->
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnSignIn"
+                        android:id="@+id/btnSignUp"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
                         android:layout_marginTop="24dp"
-                        android:text="Sign In"
+                        android:text="Create Account"
                         android:textAllCaps="false"
                         android:textColor="@android:color/white"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         app:backgroundTint="#D12B2B"
                         app:cornerRadius="12dp" />
-
-                    <!-- Don't have account -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Don't have an account? "
-                            android:textColor="#6B7280"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/tvSignUp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:text="Sign Up"
-                            android:textColor="#D12B2B"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            tools:ignore="TouchTargetSizeCheck" />
-                    </LinearLayout>
 
                     <!-- Divider -->
                     <LinearLayout
@@ -211,7 +270,7 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="12dp"
                             android:paddingEnd="12dp"
-                            android:text="OR CONTINUE WITH"
+                            android:text="OR SIGN UP WITH"
                             android:textColor="#9CA3AF"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -242,106 +301,45 @@
                         app:strokeColor="#E5E7EB"
                         app:strokeWidth="1dp" />
 
-                    <!-- Biometric Button -->
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnBiometric"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:layout_marginTop="12dp"
-                        android:text="Use Biometric Login"
-                        android:textAllCaps="false"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        app:cornerRadius="12dp"
-                        app:icon="@drawable/fingerprint"
-                        app:iconGravity="textStart"
-                        app:iconPadding="12dp"
-                        app:iconSize="20dp"
-                        app:strokeColor="#E5E7EB"
-                        app:strokeWidth="1dp" />
-
-                    <!-- Footer Text -->
-                    <TextView
-                        android:id="@+id/sso"
+                    <!-- Already have account -->
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="Log in to the app using single sign-on (SSO)"
-                        android:textAlignment="center"
-                        android:textColor="#9CA3AF"
-                        android:textSize="13sp" />
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Already have an account? "
+                            android:textColor="#6B7280"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvSignIn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sign In"
+                            android:textColor="#D12B2B"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:clickable="true"
+                            android:focusable="true" />
+                    </LinearLayout>
+
+                    <!-- Footer Text -->
                     <TextView
                         android:id="@+id/helptext"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:lineSpacingExtra="2dp"
                         android:maxLines="2"
-                        android:text="Use your Varsity College credentials to access the cafeteria system"
+                        android:text="By creating an account, you can order food from the cafeteria"
                         android:textAlignment="center"
                         android:textColor="#9CA3AF"
                         android:textSize="13sp" />
-
-                    <!-- Staff Access Section -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:text="STAFF ACCESS"
-                        android:textAlignment="center"
-                        android:textColor="#9CA3AF"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <!-- Staff Login Buttons Row -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnStaffLogin"
-                            style="?attr/materialButtonOutlinedStyle"
-                            android:layout_width="0dp"
-                            android:layout_height="48dp"
-                            android:layout_marginEnd="6dp"
-                            android:layout_weight="1"
-                            android:text="Staff Login"
-                            android:textAllCaps="false"
-                            android:textColor="@android:color/black"
-                            android:textSize="14sp"
-                            app:cornerRadius="8dp"
-                            app:strokeColor="#E5E7EB"
-                            app:strokeWidth="1dp" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnAdminLogin"
-                            style="?attr/materialButtonOutlinedStyle"
-                            android:layout_width="0dp"
-                            android:layout_height="48dp"
-                            android:layout_marginStart="6dp"
-                            android:layout_weight="1"
-                            android:text="Admin Login"
-                            android:textAllCaps="false"
-                            android:textColor="@android:color/black"
-                            android:textSize="14sp"
-                            app:cornerRadius="8dp"
-                            app:strokeColor="#E5E7EB"
-                            app:strokeWidth="1dp" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Staff: Use your institutional email or quick access above"
-                        android:textAlignment="center"
-                        android:textColor="#9CA3AF"
-                        android:textSize="12sp" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
