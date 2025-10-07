@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="category_selected_bg">#FECACA</color>
+    <color name="category_selected_stroke">#DC2626</color>
+    <color name="tab_active">#DC2626</color>
+    <color name="tab_inactive">#9CA3AF</color>
+    <color name="alert_unread_bg">#FFF7F7</color>
+    <color name="alert_unread_stroke">#FCA5A5</color>
+    <color name="alert_read_stroke">#E5E7EB</color>
 </resources>
