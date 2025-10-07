@@ -1,5 +1,5 @@
 package com.varsitycollege.vc_eats
-
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -8,12 +8,19 @@ import androidx.lifecycle.lifecycleScope
 import com.varsitycollege.vc_eats.databinding.ActivityOrdersBinding
 import com.varsitycollege.vc_eats.firebase.FirebaseManager
 import com.varsitycollege.vc_eats.models.Order
+import com.varsitycollege.vc_eats.utils.LocaleHelper
 import kotlinx.coroutines.launch
 
 class OrdersActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOrdersBinding
     private val firebaseManager = FirebaseManager.getInstance()
+
+    override fun attachBaseContext(newBase: Context) {
+        val languageCode = LocaleHelper.getLanguage(newBase)
+        val context = LocaleHelper.setLocale(newBase, languageCode)
+        super.attachBaseContext(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +37,7 @@ class OrdersActivity : AppCompatActivity() {
             navigateToCustomerMenu()
         }
     }
+
     private fun navigateToCustomerMenu() {
         val intent = Intent(this, CustomerMenuActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP

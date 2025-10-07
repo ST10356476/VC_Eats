@@ -1,5 +1,6 @@
 package com.varsitycollege.vc_eats
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -10,12 +11,19 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.varsitycollege.vc_eats.databinding.ActivityAlertsBinding
+import com.varsitycollege.vc_eats.utils.LocaleHelper
 
 class AlertsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAlertsBinding
     private var allAlerts = mutableListOf<Alert>()
     private var currentFilter = "ALL" // "ALL" or "UNREAD"
+
+    override fun attachBaseContext(newBase: Context) {
+        val languageCode = LocaleHelper.getLanguage(newBase)
+        val context = LocaleHelper.setLocale(newBase, languageCode)
+        super.attachBaseContext(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,12 +56,15 @@ class AlertsActivity : AppCompatActivity() {
             displayAlerts()
         }
     }
+
     private fun navigateToCustomerMenu() {
         val intent = Intent(this, CustomerMenuActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         startActivity(intent)
         finish()
     }
+
+
     private fun loadAlerts() {
         // Sample data - replace with Firebase data later
         allAlerts.clear()
@@ -61,19 +72,19 @@ class AlertsActivity : AppCompatActivity() {
             listOf(
                 Alert(
                     id = "1",
-                    title = "Order Ready for Pickup",
-                    message = "Your Full English Breakfast is ready at the counter.",
+                    title = getString(R.string.alert_order_ready_title),
+                    message = getString(R.string.alert_order_ready_message),
                     timestamp = "5 min ago",
                     isRead = false,
                     type = "ORDER",
                     icon = R.drawable.bg_badge_green,
                     hasAction = true,
-                    actionText = "View Order"
+                    actionText = getString(R.string.view_order)
                 ),
                 Alert(
                     id = "2",
-                    title = "Order Confirmed",
-                    message = "Your order #1234 has been confirmed and is being prepared by our kitchen staff.",
+                    title = getString(R.string.alert_order_confirmed_title),
+                    message = getString(R.string.alert_order_confirmed_message),
                     timestamp = "15 min ago",
                     isRead = false,
                     type = "ORDER",
@@ -83,14 +94,14 @@ class AlertsActivity : AppCompatActivity() {
                 ),
                 Alert(
                     id = "3",
-                    title = "Special Offer",
-                    message = "Get 20% off on all breakfast items today! Valid until 11 AM.",
+                    title = getString(R.string.alert_special_offer_title),
+                    message = getString(R.string.alert_special_offer_message),
                     timestamp = "1 hour ago",
                     isRead = true,
                     type = "PROMOTION",
                     icon = R.drawable.bg_badge_green,
                     hasAction = true,
-                    actionText = "View Menu"
+                    actionText = getString(R.string.view_menu)
                 )
             )
         )
@@ -181,12 +192,10 @@ class AlertsActivity : AppCompatActivity() {
     private fun handleActionClick(alert: Alert) {
         when (alert.type) {
             "ORDER" -> {
-                // Navigate to Orders activity
-                // startActivity(Intent(this, OrdersActivity::class.java))
+                startActivity(Intent(this, OrdersActivity::class.java))
             }
             "PROMOTION" -> {
-                // Navigate to Menu activity
-                // startActivity(Intent(this, CustomerMenuActivity::class.java))
+                startActivity(Intent(this, CustomerMenuActivity::class.java))
             }
         }
         markAsRead(alert)
@@ -201,8 +210,8 @@ class AlertsActivity : AppCompatActivity() {
 
         val tvEmpty = emptyView.findViewById<TextView>(R.id.tvEmptyMessage)
         tvEmpty.text = when (currentFilter) {
-            "UNREAD" -> "No unread notifications"
-            else -> "No notifications yet"
+            "UNREAD" -> getString(R.string.no_unread_notifications)
+            else -> getString(R.string.no_notifications_yet)
         }
 
         binding.containerAlerts.addView(emptyView)
@@ -236,8 +245,8 @@ class AlertsActivity : AppCompatActivity() {
         binding.badgeTotal.text = unreadCount.toString()
         binding.badgeTotal.visibility = if (unreadCount > 0) View.VISIBLE else View.GONE
 
-        binding.btnAll.text = "All ($totalCount)"
-        binding.btnUnread.text = "Unread ($unreadCount)"
+        binding.btnAll.text = getString(R.string.all_filter, totalCount)
+        binding.btnUnread.text = getString(R.string.unread_filter, unreadCount)
     }
 
     // Data class for Alert

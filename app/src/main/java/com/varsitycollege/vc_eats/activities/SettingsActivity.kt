@@ -1,5 +1,6 @@
 package com.varsitycollege.vc_eats
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -8,12 +9,19 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import com.varsitycollege.vc_eats.databinding.ActivitySettingsBinding
 import com.varsitycollege.vc_eats.firebase.FirebaseManager
+import com.varsitycollege.vc_eats.utils.LocaleHelper
 import kotlinx.coroutines.launch
 
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingsBinding
     private val firebaseManager = FirebaseManager.getInstance()
+
+    override fun attachBaseContext(newBase: Context) {
+        val languageCode = LocaleHelper.getLanguage(newBase)
+        val context = LocaleHelper.setLocale(newBase, languageCode)
+        super.attachBaseContext(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +38,7 @@ class SettingsActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.title = getString(R.string.settings)
         binding.toolbar.setNavigationOnClickListener {
             finish()
         }
@@ -39,7 +48,7 @@ class SettingsActivity : AppCompatActivity() {
         val userId = firebaseManager.getCurrentUserId()
 
         if (userId == null) {
-            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.user_not_logged_in), Toast.LENGTH_SHORT).show()
             navigateToLogin()
             return
         }
@@ -47,7 +56,6 @@ class SettingsActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val user = firebaseManager.getUser(userId)
             if (user != null) {
-                // Save to SharedPreferences for offline access
                 val sharedPref = getSharedPreferences("UserPrefs", MODE_PRIVATE)
                 with(sharedPref.edit()) {
                     putString("user_id", user.id)
@@ -58,10 +66,9 @@ class SettingsActivity : AppCompatActivity() {
                     apply()
                 }
 
-                // Update UI
                 setupUserProfile(user.name, user.email, userId)
             } else {
-                Toast.makeText(this@SettingsActivity, "Failed to load user data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SettingsActivity, getString(R.string.failed_load_user_data), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -71,7 +78,6 @@ class SettingsActivity : AppCompatActivity() {
         binding.tvUserEmail.text = userEmail
         binding.chipStudentId.text = "User ID: ${userId.take(10)}..."
 
-        // Set initials for avatar
         val initials = userName.split(" ")
             .mapNotNull { it.firstOrNull()?.toString() }
             .take(2)
@@ -81,58 +87,43 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners() {
-        // Profile Information
         binding.cardProfileInfo.setOnClickListener {
             val intent = Intent(this, ProfileInformationActivity::class.java)
             startActivityForResult(intent, PROFILE_UPDATE_REQUEST)
         }
 
-        // Biometric Authentication Switch
         binding.switchBiometric.setOnCheckedChangeListener { _, isChecked ->
             saveBooleanPreference("biometric_enabled", isChecked)
-            if (isChecked) {
-                Toast.makeText(this, "Biometric authentication enabled", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Biometric authentication disabled", Toast.LENGTH_SHORT).show()
-            }
+            val message = if (isChecked) getString(R.string.biometric_enabled) else getString(R.string.biometric_disabled)
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
 
-        // Order Updates Switch
         binding.switchOrderUpdates.setOnCheckedChangeListener { _, isChecked ->
             saveBooleanPreference("order_updates", isChecked)
         }
 
-        // Promotions & Offers Switch
         binding.switchPromotions.setOnCheckedChangeListener { _, isChecked ->
             saveBooleanPreference("promotions", isChecked)
         }
 
-        // Daily Specials Switch
         binding.switchDailySpecials.setOnCheckedChangeListener { _, isChecked ->
             saveBooleanPreference("daily_specials", isChecked)
         }
 
-        // Push Notifications Switch
         binding.switchPushNotifications.setOnCheckedChangeListener { _, isChecked ->
             saveBooleanPreference("push_notifications", isChecked)
         }
 
-        // Language Selector
         binding.cardLanguage.setOnClickListener {
             showLanguageDialog()
         }
 
-        // Offline Mode Switch
         binding.switchOfflineMode.setOnCheckedChangeListener { _, isChecked ->
             saveBooleanPreference("offline_mode", isChecked)
-            if (isChecked) {
-                Toast.makeText(this, "Offline mode enabled", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Offline mode disabled", Toast.LENGTH_SHORT).show()
-            }
+            val message = if (isChecked) getString(R.string.offline_mode_enabled) else getString(R.string.offline_mode_disabled)
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
 
-        // Sign Out Button
         binding.btnSignOut.setOnClickListener {
             showSignOutDialog()
         }
@@ -148,8 +139,9 @@ class SettingsActivity : AppCompatActivity() {
         binding.switchPushNotifications.isChecked = sharedPref.getBoolean("push_notifications", true)
         binding.switchOfflineMode.isChecked = sharedPref.getBoolean("offline_mode", false)
 
-        val language = sharedPref.getString("language", "English") ?: "English"
-        binding.tvSelectedLanguage.text = language
+        val languageCode = LocaleHelper.getLanguage(this)
+        val languageName = LocaleHelper.getLanguageName(languageCode)
+        binding.tvSelectedLanguage.text = languageName
     }
 
     private fun saveBooleanPreference(key: String, value: Boolean) {
@@ -162,45 +154,55 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun showLanguageDialog() {
         val languages = arrayOf("English", "Afrikaans", "Zulu", "Xhosa")
-        val currentLanguage = getSharedPreferences("UserPrefs", MODE_PRIVATE)
-            .getString("language", "English") ?: "English"
+        val currentLanguageCode = LocaleHelper.getLanguage(this)
+        val currentLanguage = LocaleHelper.getLanguageName(currentLanguageCode)
         val checkedItem = languages.indexOf(currentLanguage)
 
         AlertDialog.Builder(this)
-            .setTitle("Select Language")
+            .setTitle(getString(R.string.select_language))
             .setSingleChoiceItems(languages, checkedItem) { dialog, which ->
                 val selectedLanguage = languages[which]
-                binding.tvSelectedLanguage.text = selectedLanguage
+                val languageCode = LocaleHelper.getLanguageCode(selectedLanguage)
 
-                val sharedPref = getSharedPreferences("UserPrefs", MODE_PRIVATE)
-                with(sharedPref.edit()) {
-                    putString("language", selectedLanguage)
-                    apply()
-                }
+                // Save language preference
+                LocaleHelper.setLocale(this, languageCode)
 
-                Toast.makeText(this, "Language changed to $selectedLanguage", Toast.LENGTH_SHORT).show()
+                // Show toast with selected language
+                Toast.makeText(
+                    this,
+                    getString(R.string.language_changed, selectedLanguage),
+                    Toast.LENGTH_SHORT
+                ).show()
+
                 dialog.dismiss()
+
+                // Restart activity to apply language change
+                recreateActivity()
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
+    }
+
+    private fun recreateActivity() {
+        val intent = intent
+        finish()
+        startActivity(intent)
     }
 
     private fun showSignOutDialog() {
         AlertDialog.Builder(this)
-            .setTitle("Sign Out")
-            .setMessage("Are you sure you want to sign out?")
-            .setPositiveButton("Sign Out") { _, _ ->
+            .setTitle(getString(R.string.sign_out_title))
+            .setMessage(getString(R.string.sign_out_message))
+            .setPositiveButton(getString(R.string.sign_out)) { _, _ ->
                 signOut()
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 
     private fun signOut() {
-        // Clear Firebase session
         firebaseManager.signOut()
 
-        // Clear SharedPreferences
         val sharedPref = getSharedPreferences("UserPrefs", MODE_PRIVATE)
         with(sharedPref.edit()) {
             clear()

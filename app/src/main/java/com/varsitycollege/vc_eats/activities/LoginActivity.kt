@@ -55,19 +55,6 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Staff Login Button
-        binding.btnStaffLogin.setOnClickListener {
-            // For now, just navigate to staff dashboard
-            // Later you can add staff-specific login
-            startActivity(Intent(this, StaffDashboardActivity::class.java))
-        }
-
-        // Admin Login Button
-        binding.btnAdminLogin.setOnClickListener {
-            // For now, just navigate to staff dashboard
-            // Later you can add admin-specific login
-            startActivity(Intent(this, StaffDashboardActivity::class.java))
-        }
 
         // Google Sign In Button (for later implementation)
         binding.btnGoogle.setOnClickListener {
