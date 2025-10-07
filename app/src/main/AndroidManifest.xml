@@ -14,8 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VC_Eats">
-
-
+        <activity
+            android:name=".activities.ProfileInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:exported="false" />
         <activity
             android:name=".AlertsActivity"
             android:exported="false" />
@@ -39,18 +43,16 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
-
-        <!-- LoginActivity as the launcher/landing page -->
+            android:exported="false" /> <!-- LoginActivity as the launcher/landing page -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
