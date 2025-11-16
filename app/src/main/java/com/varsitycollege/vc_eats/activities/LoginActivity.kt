@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.varsitycollege.vc_eats.databinding.ActivityLoginBinding
+import com.varsitycollege.vc_eats.firebase.FirebaseManager
 import com.varsitycollege.vc_eats.viewmodels.LoginState
 import com.varsitycollege.vc_eats.viewmodels.LoginViewModel
 import kotlinx.coroutines.launch
@@ -22,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
 
-    // To remember the last credentials used for login
+    // Remember last credentials used for login
     private var lastEmail: String? = null
     private var lastPassword: String? = null
 
@@ -31,52 +32,49 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize ViewModel
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
 
-        // Setup biometric prompt and button state
         setupBiometricAuth()
-
-        // Check if user is already logged in (you can implement with Firebase later)
         checkIfUserLoggedIn()
-
         setupClickListeners()
         observeLoginState()
     }
 
     private fun checkIfUserLoggedIn() {
-        // If user is already logged in, navigate to appropriate screen
-        // You can implement this later when Firebase is working, for example:
-        // val currentUser = FirebaseAuth.getInstance().currentUser
-        // if (currentUser != null) { navigateBasedOnRole("CUSTOMER") }
+        val userId = FirebaseManager.getInstance().getCurrentUserId()
+        if (userId != null) {
+            lifecycleScope.launch {
+                val user = FirebaseManager.getInstance().getUser(userId)
+                val role = user?.role ?: "CUSTOMER"
+                navigateBasedOnRole(role)
+            }
+        }
     }
 
     private fun setupClickListeners() {
-        // Sign In Button
+        // Sign in
         binding.btnSignIn.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
             val password = binding.etPassword.text.toString().trim()
 
             if (validateInput(email, password)) {
-                // Store for potential biometric save when login succeeds
                 lastEmail = email
                 lastPassword = password
                 viewModel.signIn(email, password)
             }
         }
 
-        // Sign Up Link
+        // Sign up
         binding.tvSignUp.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, SignUpActivity::class.java))
         }
 
-        // Google Sign In Button (for later implementation)
+        // Google sign in placeholder
         binding.btnGoogle.setOnClickListener {
-            Toast.makeText(this, "Google Sign-In coming soon!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Google Sign-In coming soon", Toast.LENGTH_SHORT).show()
         }
 
-        // Biometric Button
+        // Biometric login
         binding.btnBiometric.setOnClickListener {
             if (BiometricPrefs.isBiometricEnabled(this)) {
                 biometricPrompt.authenticate(promptInfo)
@@ -91,26 +89,22 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun observeLoginState() {
+        // Result of login
         lifecycleScope.launch {
             viewModel.loginState.collect { state ->
                 when (state) {
                     is LoginState.Success -> {
                         Toast.makeText(
                             this@LoginActivity,
-                            "Login successful!",
+                            "Login successful",
                             Toast.LENGTH_SHORT
                         ).show()
 
-                        // Save credentials for biometric login
+                        // Save credentials for future biometric login
                         val email = lastEmail
                         val password = lastPassword
                         if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
-                            BiometricPrefs.saveCredentials(
-                                this@LoginActivity,
-                                email,
-                                password
-                            )
-                            // Enable biometric button once credentials are saved
+                            BiometricPrefs.saveCredentials(this@LoginActivity, email, password)
                             binding.btnBiometric.isEnabled = true
                             binding.btnBiometric.alpha = 1f
                         }
@@ -127,13 +121,13 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                     LoginState.Initial -> {
-                        // Do nothing
+                        // Nothing
                     }
                 }
             }
         }
 
-        // Observe loading state to show or hide progress
+        // Loading state
         lifecycleScope.launch {
             viewModel.isLoading.collect { isLoading ->
                 binding.btnSignIn.isEnabled = !isLoading
@@ -146,7 +140,7 @@ class LoginActivity : AppCompatActivity() {
         val intent = when (userRole) {
             "CUSTOMER" -> Intent(this, CustomerMenuActivity::class.java)
             "STAFF", "ADMIN" -> Intent(this, StaffDashboardActivity::class.java)
-            else -> Intent(this, CustomerMenuActivity::class.java) // Default to customer
+            else -> Intent(this, CustomerMenuActivity::class.java)
         }
 
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -155,7 +149,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun validateInput(email: String, password: String): Boolean {
-        // Clear previous errors
         binding.tilEmail.error = null
         binding.tilPassword.error = null
 
@@ -187,25 +180,52 @@ class LoginActivity : AppCompatActivity() {
     private fun setupBiometricAuth() {
         val biometricManager = BiometricManager.from(this)
 
-        val canUseBiometric = when (
-            biometricManager.canAuthenticate(
-                BiometricManager.Authenticators.BIOMETRIC_STRONG or
-                        BiometricManager.Authenticators.DEVICE_CREDENTIAL
-            )
-        ) {
-            BiometricManager.BIOMETRIC_SUCCESS -> true
-            else -> false
+        val canAuthCode = biometricManager.canAuthenticate(
+            BiometricManager.Authenticators.BIOMETRIC_STRONG or
+                    BiometricManager.Authenticators.DEVICE_CREDENTIAL
+        )
+
+        val canUseBiometric = when (canAuthCode) {
+            BiometricManager.BIOMETRIC_SUCCESS -> {
+                true
+            }
+
+            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {
+                Toast.makeText(this, "No biometric hardware on this device", Toast.LENGTH_LONG).show()
+                false
+            }
+
+            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
+                Toast.makeText(this, "Biometric hardware currently unavailable", Toast.LENGTH_LONG).show()
+                false
+            }
+
+            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
+                Toast.makeText(
+                    this,
+                    "No fingerprint or face enrolled. Set it up in device settings.",
+                    Toast.LENGTH_LONG
+                ).show()
+                false
+            }
+
+            else -> {
+                Toast.makeText(this, "Biometric not available", Toast.LENGTH_LONG).show()
+                false
+            }
         }
 
         val enabledInPrefs = BiometricPrefs.isBiometricEnabled(this)
 
-        // Button is enabled only if device supports biometrics and user has enabled it
+        // Initial state of the button on screen load
         binding.btnBiometric.isEnabled = canUseBiometric && enabledInPrefs
         binding.btnBiometric.alpha = if (binding.btnBiometric.isEnabled) 1f else 0.5f
 
         val executor = ContextCompat.getMainExecutor(this)
 
-        biometricPrompt = BiometricPrompt(this, executor,
+        biometricPrompt = BiometricPrompt(
+            this,
+            executor,
             object : BiometricPrompt.AuthenticationCallback() {
 
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
@@ -214,6 +234,8 @@ class LoginActivity : AppCompatActivity() {
                     val password = BiometricPrefs.getPassword(this@LoginActivity)
 
                     if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
+                        lastEmail = email
+                        lastPassword = password
                         viewModel.signIn(email, password)
                     } else {
                         Toast.makeText(
@@ -241,7 +263,8 @@ class LoginActivity : AppCompatActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-            })
+            }
+        )
 
         promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle("Biometric login")
