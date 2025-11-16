@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VC_Eats</string>
+    <string name="emoji_breakfast">🥞</string>
+    <string name="emoji_lunch">🍽️</string>
+    <string name="emoji_beverages">☕</string>
+    <string name="emoji_snacks">🍿</string>
+    <string name="emoji_empty_state">🍽️</string>
+
+    <!-- Settings Activity -->
+    <string name="settings">Izilungiselelo</string>
+    <string name="account">I-akhawunti</string>
+    <string name="profile_information">Ulwazi Lwephrofayela</string>
+    <string name="view_edit_personal_details">Buka noma ulungise imininingwane yakho</string>
+    <string name="security">Ezokuphepha</string>
+    <string name="biometric_authentication">Ukuqinisekisa kwe-Biometric</string>
+    <string name="use_fingerprint_face">Sebenzisa isithupha noma ukubona ubuso ukuze ungene</string>
+    <string name="notifications">Izaziso</string>
+    <string name="order_updates">Izibuyekezo Zama-oda</string>
+    <string name="get_notified_order_status">Thola isaziso uma isimo se-oda sakho siguquka</string>
+    <string name="promotions_offers">Okunikezwayo Nezaphulelo</string>
+    <string name="receive_special_deals">Thola izaziso ngezaphulelo kanye nokunikezwayo okukhethekile</string>
+    <string name="daily_specials">Okukhethekile Kwansuku zonke</string>
+    <string name="notified_featured_meals">Thola izaziso ngezidlo ezikhethiwe zanamuhla</string>
+    <string name="push_notifications">Izaziso ze-Push</string>
+    <string name="allow_notifications_closed">Vumela izaziso ngisho nxa uhlelo luvaliwe</string>
+    <string name="app_preferences">Okuthandwa kuhlelo</string>
+    <string name="language">Ulimi</string>
+    <string name="choose_preferred_language">Khetha ulimi olukhethayo</string>
+    <string name="offline_mode">Imodi Engaxhunyiwe</string>
+    <string name="browse_menus_without_internet">Vumela ukubuka imenyu ngaphandle kwe-inthanethi</string>
+    <string name="about">Mayelana</string>
+    <string name="app_version">Inguqulo Yohlelo</string>
+    <string name="last_updated">Kugcinwe Kubuyekezwa</string>
+    <string name="sign_out">Phuma</string>
+
+    <!-- Toast Messages -->
+    <string name="biometric_enabled">Ukuqinisekisa kwe-biometric kuvuliwe</string>
+    <string name="biometric_disabled">Ukuqinisekisa kwe-biometric kuvaliwe</string>
+    <string name="offline_mode_enabled">Imodi engaxhunyiwe ivuliwe</string>
+    <string name="offline_mode_disabled">Imodi engaxhunyiwe ivalwe</string>
+    <string name="language_changed">Ulimi lushintshelwe ku %s</string>
+    <string name="user_not_logged_in">Umsebenzisi akangenanga</string>
+    <string name="failed_load_user_data">Ayikwazanga ukulayisha imininingwane yomsebenzisi</string>
+
+    <!-- Dialog Messages -->
+    <string name="select_language">Khetha Ulimi</string>
+    <string name="sign_out_title">Phuma</string>
+    <string name="sign_out_message">Uqinisekile ukuthi ufuna ukuphuma?</string>
+    <string name="cancel">Khansela</string>
+
+    <!-- Profile Information -->
+    <string name="personal_information">Ulwazi Lomuntu</string>
+    <string name="full_name">Igama Eligcwele</string>
+    <string name="email_address">Ikheli Le-imeyili</string>
+    <string name="student_id">i-Student ID</string>
+    <string name="phone_number_optional">Inombolo Yocingo (Ngokuzithandela)</string>
+    <string name="address_optional">Ikheli (Ngokuzithandela)</string>
+    <string name="save_changes">Londoloza Izinguquko</string>
+    <string name="profile_updated">Iphrofayela ibuyekezwe ngempumelelo</string>
+    <string name="failed_update_profile">Ayikwazanga ukubuyekeza iphrofayela</string>
+
+    <!-- Validation Messages -->
+    <string name="full_name_required">Kudingeka igama eligcwele</string>
+    <string name="email_required">Kudingeka i-imeyili</string>
+    <string name="invalid_email_format">Ifomethi ye-imeyili ayivumelekile</string>
+    <string name="student_id_required">Kudingeka i-Student ID</string>
+
+    <!-- Customer Menu -->
+    <string name="welcome_back">Siyakwamukela futhi</string>
+    <string name="what_order_today">Uzofuna uku-oda ini namuhla?</string>
+    <string name="categories">Izigaba</string>
+    <string name="breakfast">Isidlo sasekuseni</string>
+    <string name="lunch">Isidlo sasemini</string>
+    <string name="beverages">Iziselo</string>
+    <string name="snacks">Okudliwayo</string>
+    <string name="menu">Imenyu</string>
+    <string name="orders">Ama-oda</string>
+    <string name="alerts">Izexwayiso</string>
+
+    <!-- Alert Activity -->
+    <string name="no_unread_notifications">Azikho izaziso ezingafundiwe</string>
+    <string name="no_notifications_yet">Okwamanje azikho izaziso</string>
+    <string name="notifications_description">Sizokazisa lapho kukhona okubalulekile okwenzekayo</string>
+    <string name="all_filter">Konke (%1$d)</string>
+    <string name="unread_filter">Okungafundiwe (%1$d)</string>
+    <string name="mark_all_read">Phawula konke kufundiwe</string>
+    <string name="settings_title">Izilungiselelo</string>
+    <string name="user_initials">JD</string>
+    <string name="loading">Ilayisha...</string>
+    <string name="user_id_loading">i-User ID: Iyalayisha...</string>
+    <string name="view_edit_details">Buka noma ulungise imininingwane yakho</string>
+    <string name="biometric_auth">Ukuqinisekisa kwe-Biometric</string>
+    <string name="biometric_description">Sebenzisa isithupha noma ukubona ubuso ukuze ungene</string>
+    <string name="order_updates_desc">Thola izaziso uma isimo se-oda sakho siguquka</string>
+    <string name="promotions">Okunikezwayo</string>
+    <string name="promotions_desc">Thola izaziso ngezaphulelo nezinhlelo ezikhethekile</string>
+    <string name="daily_specials_desc">Yaziswa ngezidlo ezikhethekile zanamuhla</string>
+    <string name="push_notifications_desc">Vumela izaziso ngisho nxa uhlelo luvaliwe</string>
+    <string name="language_desc">Khetha ulimi olukhethayo</string>
+    <string name="english">IsiNgisi</string>
+    <string name="offline_mode_desc">Vumela ukubuka ngaphandle kwe-inthanethi</string>
+    <string name="app_version_value">2.1.0</string>
+    <string name="last_updated_value">15 Jan 2025</string>
+    <string name="cd_logo">Ilogo Yohlelo</string>
+    <string name="cd_cart">Inkinobho Yokuthenga</string>
+    <string name="varsity_college">Varsity College</string>
+    <string name="cafeteria">i-Cafeteria</string>
+    <string name="zero_items">0 izinto</string>
+    <string name="no_items_available_yet">Azikho izinto ezitholakalayo</string>
+    <string name="preparing_menu_msg">Abapheki bethu balungiselela imenyu.\nSicela ubuye kamuva!</string>
+    <string name="cd_back">Inkinobho Yokubuyela Emuva</string>
+    <string name="your_orders">Ama-oda Akho</string>
+    <string name="active_orders">Ama-oda Asebenzayo</string>
+    <string name="no_active_orders">Awekho ama-oda asebenzayo</string>
+    <string name="order_history">Umlando Wama-oda</string>
+    <string name="no_past_orders">Awekho ama-oda adlule</string>
+    <string name="zero">0</string>
+    <string name="alert_order_ready_title">I-oda Selilungele Ukuthathwa</string>
+    <string name="alert_order_ready_message">Isidlo sakho esinye siphelile sisesitobhini.</string>
+    <string name="alert_order_confirmed_title">I-oda Liqinisekisiwe</string>
+    <string name="alert_order_confirmed_message">I-oda lakho #1234 liqinisekisiwe futhi liyalungiswa.</string>
+    <string name="alert_special_offer_title">Isaphulelo Esikhethekile</string>
+    <string name="alert_special_offer_message">Thola isaphulelo esingu 20% kuzo zonke izidlo zasekuseni namuhla! Siphela ngo-11 ekuseni.</string>
+    <string name="view_order">Buka I-oda</string>
+    <string name="view_menu">Buka Imenyu</string>
+    <string name="cart_feature_coming_soon">Isici semoto yokuthenga siyafika maduze!</string>
+    <string name="welcome_name_fallback">mngani</string>
+    <string name="welcome_back_with_name">Siyakwamukela futhi, %1$s!</string>
+    <string name="category_menu_title">Imenyu ye-%1$s</string>
+    <string name="item_singular">into</string>
+    <string name="item_plural">izinto</string>
+    <string name="item_count_format">%1$d %2$s</string>
+    <string name="cart_currency_format">R%.2f</string>
+    <string name="cart_proceed_to_payment_with_total">Qhubeka Nokukhokha - R%.2f</string>
+    <string name="cart_proceeding_to_payment_toast">Siya ekukhokheni...</string>
+
+
+</resources>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VC_Eats</string>
+    <string name="emoji_breakfast">🥞</string>
+    <string name="emoji_lunch">🍽️</string>
+    <string name="emoji_beverages">☕</string>
+    <string name="emoji_snacks">🍿</string>
+    <string name="emoji_empty_state">🍽️</string>
+
+    <!-- Settings Activity -->
+    <string name="settings">Izicwangciso</string>
+    <string name="account">Iakhawunti</string>
+    <string name="profile_information">Ulwazi Leprofayile</string>
+    <string name="view_edit_personal_details">Jonga uze uhlele iinkcukacha zakho zobuqu</string>
+    <string name="security">Ukhuseleko</string>
+    <string name="biometric_authentication">Uqinisekiso LweBiometric</string>
+    <string name="use_fingerprint_face">Sebenzisa umnwe okanye ukuqondwa kobuso ukuze ungene</string>
+    <string name="notifications">Izaziso</string>
+    <string name="order_updates">Uhlaziyo Lwemiqondiso</string>
+    <string name="get_notified_order_status">Fumana isaziso xa imeko yomyalelo wakho itshintsha</string>
+    <string name="promotions_offers">Izaphulelo Nezibonelelo</string>
+    <string name="receive_special_deals">Fumana izaziso ngezibonelelo ezikhethekileyo nezaphulelo</string>
+    <string name="daily_specials">Izitya Zemihla Ngemihla</string>
+    <string name="notified_featured_meals">Fumana izaziso ngezitya ezikhethiweyo zanamhlanje</string>
+    <string name="push_notifications">Izaziso Ezinokusunduza</string>
+    <string name="allow_notifications_closed">Vumela izaziso nokuba usetyenziso luvaliwe</string>
+    <string name="app_preferences">Useto Lwesicelo</string>
+    <string name="language">Ulwimi</string>
+    <string name="choose_preferred_language">Khetha ulwimi olukhethayo</string>
+    <string name="offline_mode">Imo Engaxhunyiwe</string>
+    <string name="browse_menus_without_internet">Vumela ukujonga iimenyu ngaphandle konxibelelwano lwe-intanethi</string>
+    <string name="about">Malunga</string>
+    <string name="app_version">Uguqulo Lwesicelo</string>
+    <string name="last_updated">Uhlaziyo Lokugqibela</string>
+    <string name="sign_out">Phuma</string>
+
+    <!-- Toast Messages -->
+    <string name="biometric_enabled">Uqinisekiso lweBiometric luvuliwe</string>
+    <string name="biometric_disabled">Uqinisekiso lweBiometric luvaliwe</string>
+    <string name="offline_mode_enabled">Imo engaxhunyiwe ivuliwe</string>
+    <string name="offline_mode_disabled">Imo engaxhunyiwe ivalwe</string>
+    <string name="language_changed">Ulwimi lutshintshwe lwa ku %s</string>
+    <string name="user_not_logged_in">Umsebenzisi akangenanga</string>
+    <string name="failed_load_user_data">Akukwazekanga ukulayisha idatha yomsebenzisi</string>
+
+    <!-- Dialog Messages -->
+    <string name="select_language">Khetha Ulwimi</string>
+    <string name="sign_out_title">Phuma</string>
+    <string name="sign_out_message">Uqinisekile ufuna ukuphuma?</string>
+    <string name="cancel">Rhoxisa</string>
+
+    <!-- Profile Information -->
+    <string name="personal_information">Ulwazi Lobuqu</string>
+    <string name="full_name">Igama Elipheleleyo</string>
+    <string name="email_address">Idilesi Ye-imeyile</string>
+    <string name="student_id">Isazisi Somfundi</string>
+    <string name="phone_number_optional">Inombolo Yefowuni (Okukhethwayo)</string>
+    <string name="address_optional">Idilesi (Okukhethwayo)</string>
+    <string name="save_changes">Gcina Iinguqu</string>
+    <string name="profile_updated">Iprofayile ihlaziyiwe ngempumelelo</string>
+    <string name="failed_update_profile">Akukwazekanga ukuhlaziya iprofayile</string>
+
+    <!-- Validation Messages -->
+    <string name="full_name_required">Igama elipheleleyo liyafuneka</string>
+    <string name="email_required">I-imeyile iyafuneka</string>
+    <string name="invalid_email_format">Ifomathi ye-imeyile ayivumelekanga</string>
+    <string name="student_id_required">Isazisi somfundi siyafuneka</string>
+
+    <!-- Customer Menu -->
+    <string name="welcome_back">Wamkelekile kwakhona</string>
+    <string name="what_order_today">Uthanda ukuthenga ntoni namhlanje?</string>
+    <string name="categories">Iindidi</string>
+    <string name="breakfast">Isidlo Sakusasa</string>
+    <string name="lunch">Isidlo Sasemini</string>
+    <string name="beverages">Iiseli / Iziselo</string>
+    <string name="snacks">Iisnekhi</string>
+    <string name="menu">Imenyu</string>
+    <string name="orders">Iiodolo</string>
+    <string name="alerts">Izilumkiso</string>
+
+    <!-- Alert Activity -->
+    <string name="no_unread_notifications">Akukho zaziso ezingafundwanga</string>
+    <string name="no_notifications_yet">Akukho zaziso okwangoku</string>
+    <string name="notifications_description">Siza kukwazisa xa kukho into ebalulekileyo eyenzekayo</string>
+    <string name="all_filter">Zonke (%1$d)</string>
+    <string name="unread_filter">EzingaFundwanga (%1$d)</string>
+    <string name="mark_all_read">Phawula zonke njengezifundiwe</string>
+    <string name="settings_title">Izicwangciso</string>
+    <string name="user_initials">JD</string>
+    <string name="loading">Iyalayisha...</string>
+    <string name="user_id_loading">Isazisi Somsebenzisi: Iyalayisha...</string>
+    <string name="view_edit_details">Jonga uze uhlele iinkcukacha zakho zobuqu</string>
+    <string name="biometric_auth">Uqinisekiso LweBiometric</string>
+    <string name="biometric_description">Sebenzisa umnwe okanye ukuqondwa kobuso ukuze ungene</string>
+    <string name="order_updates_desc">Fumana izaziso xa imeko yoyalela itshintsha</string>
+    <string name="promotions">Izaphulelo Nezibonelelo</string>
+    <string name="promotions_desc">Fumana izaziso ngezaphulelo okanye izibonelelo ezikhethekileyo</string>
+    <string name="daily_specials_desc">Fumana izaziso ngezitya ezikhethiweyo zanamhlanje</string>
+    <string name="push_notifications_desc">Vumela izaziso nokuba usetyenziso luvaliwe</string>
+    <string name="language_desc">Khetha ulwimi oluthandayo</string>
+    <string name="english">IsiXhosa</string>
+    <string name="offline_mode_desc">Vumela ukubrowse ngaphandle konxibelelwano lwe-intanethi</string>
+    <string name="app_version_value">2.1.0</string>
+    <string name="last_updated_value">15 Jan 2025</string>
+    <string name="cd_logo">Ilogo yesicelo</string>
+    <string name="cd_cart">Iqhosha Lempepha</string>
+    <string name="varsity_college">Varsity College</string>
+    <string name="cafeteria">IKhafeteriya</string>
+    <string name="zero_items">0 izinto</string>
+    <string name="no_items_available_yet">Akukho zinto zikhoyo okwangoku</string>
+    <string name="preparing_menu_msg">Iqela lekhitshi lilungiselela imenyu.\nBuyela kwakhona kamva!</string>
+    <string name="cd_back">Iqhosha Lokubuyela Emva</string>
+    <string name="your_orders">IiOdolo Zakho</string>
+    <string name="active_orders">IiOdolo Ezisebenzayo</string>
+    <string name="no_active_orders">Akukho odolo zisebenzayo</string>
+    <string name="order_history">Imbali YeeOdolo</string>
+    <string name="no_past_orders">Akukho odolo zangaphambili</string>
+    <string name="zero">0</string>
+    <string name="alert_order_ready_title">Umyalelo Ulungele Ukuthathwa</string>
+    <string name="alert_order_ready_message">Isidlo sakho se-English Breakfast silungele ukuthathwa etafileni.</string>
+    <string name="alert_order_confirmed_title">Umyalelo Uqinisekisiwe</string>
+    <string name="alert_order_confirmed_message">Umyalelo wakho #1234 uqinisekisiwe kwaye uyaphekwayo ngoku.</string>
+    <string name="alert_special_offer_title">Isibonelelo Esikhethekileyo</string>
+    <string name="alert_special_offer_message">Fumana isaphulelo se-20% kuzo zonke izitya zesidlo sakusasa namhlanje! Sivumelekile ukuya kowe-11 AM.</string>
+    <string name="view_order">Jonga Umyalelo</string>
+    <string name="view_menu">Jonga Imenyu</string>
+    <string name="cart_feature_coming_soon">Umsebenzi wempepha uza kufumaneka kungekudala!</string>
+    <string name="welcome_name_fallback">mhlobo</string>
+    <string name="welcome_back_with_name">Wamkelekile kwakhona, %1$s!</string>
+    <string name="category_menu_title">Imenyu ye-%1$s</string>
+    <string name="item_singular">into</string>
+    <string name="item_plural">izinto</string>
+    <string name="item_count_format">%1$d %2$s</string>
+    <string name="cart_currency_format">R%.2f</string>
+    <string name="cart_proceed_to_payment_with_total">Qhubeka nentlawulo - R%.2f</string>
+    <string name="cart_proceeding_to_payment_toast">Siya kwiphepha lentlawulo...</string>
+
+
+</resources>

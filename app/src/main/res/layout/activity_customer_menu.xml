@@ -171,7 +171,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="🥞"
+                                    android:text="@string/emoji_breakfast"
                                     android:textSize="20sp"
                                     android:layout_marginBottom="4dp" />
 
@@ -211,7 +211,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="🍽️"
+                                    android:text="@string/emoji_lunch"
                                     android:textSize="20sp"
                                     android:layout_marginBottom="4dp" />
 
@@ -251,7 +251,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="☕"
+                                    android:text="@string/emoji_beverages"
                                     android:textSize="20sp"
                                     android:layout_marginBottom="4dp" />
 
@@ -290,7 +290,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="🍿"
+                                    android:text="@string/emoji_snacks"
                                     android:textSize="20sp"
                                     android:layout_marginBottom="4dp" />
 
@@ -375,7 +375,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🍽️"
+                            android:text="@string/emoji_empty_state"
                             android:textSize="64sp"
                             android:layout_marginBottom="16dp" />
 

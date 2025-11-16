@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">VC_Eats</string>
+    <string name="emoji_breakfast">🥞</string>
+    <string name="emoji_lunch">🍽️</string>
+    <string name="emoji_beverages">☕</string>
+    <string name="emoji_snacks">🍿</string>
+    <string name="emoji_empty_state">🍽️</string>
 
     <!-- Settings Activity -->
     <string name="settings">Instellings</string>
@@ -120,6 +125,16 @@
     <string name="view_order">Bekyk Bestel</string>
     <string name="view_menu">Bekyk Spyskaart</string>
     <string name="cart_feature_coming_soon">Mandjie funksie kom binnekort!</string>
+    <string name="welcome_name_fallback">daar</string>
+    <string name="welcome_back_with_name">Welkom terug, %1$s!</string>
+    <string name="category_menu_title">%1$s Spyskaart</string>
+    <string name="item_singular">item</string>
+    <string name="item_plural">items</string>
+    <string name="item_count_format">%1$d %2$s</string>
+    <string name="cart_currency_format">R%.2f</string>
+    <string name="cart_proceed_to_payment_with_total">Gaan voort na Betaling - R%.2f</string>
+    <string name="cart_proceeding_to_payment_toast">Gaan voort na betaling...</string>
+
 
 
 

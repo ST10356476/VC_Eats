@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">VC_Eats</string>
+    <string name="emoji_breakfast">🥞</string>
+    <string name="emoji_lunch">🍽️</string>
+    <string name="emoji_beverages">☕</string>
+    <string name="emoji_snacks">🍿</string>
+    <string name="emoji_empty_state">🍽️</string>
 
     <!-- Settings Activity -->
     <string name="settings">Settings</string>
@@ -120,6 +125,16 @@
     <string name="view_order">View Order</string>
     <string name="view_menu">View Menu</string>
     <string name="cart_feature_coming_soon">Cart feature coming soon!</string>
+    <string name="welcome_back_with_name">Welcome back, %1$s!</string>
+    <string name="category_menu_title">%1$s Menu</string>
+    <string name="item_singular">item</string>
+    <string name="item_plural">items</string>
+    <string name="item_count_format">%1$d %2$s</string>
+    <string name="cart_currency_format">R%.2f</string>
+    <string name="cart_proceed_to_payment_with_total">Proceed to Payment - R%.2f</string>
+    <string name="cart_proceeding_to_payment_toast">Proceeding to payment...</string>
+    <string name="welcome_name_fallback">there</string>
+
 
 
 

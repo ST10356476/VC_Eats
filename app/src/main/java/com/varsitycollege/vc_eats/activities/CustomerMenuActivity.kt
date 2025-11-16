@@ -4,10 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.card.MaterialCardView
 import com.varsitycollege.vc_eats.adapters.CartAdapter
 import com.varsitycollege.vc_eats.databinding.ActivityCustomerMenuBinding
 import com.varsitycollege.vc_eats.databinding.DialogCartBinding
@@ -16,13 +20,24 @@ import com.varsitycollege.vc_eats.models.MenuItem
 import com.varsitycollege.vc_eats.utils.CartManager
 import com.varsitycollege.vc_eats.utils.LocaleHelper
 import kotlinx.coroutines.launch
-import android.widget.Toast
 
 class CustomerMenuActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCustomerMenuBinding
     private val firebaseManager = FirebaseManager.getInstance()
-    private var currentCategory = "Breakfast"
+
+    // These match Firestore category values, so they stay in English internally
+    private var currentCategory = CATEGORY_BREAKFAST
+
+    // To detect when user changes language in Settings while this activity is in back stack
+    private var currentLanguageCode: String? = null
+
+    companion object {
+        private const val CATEGORY_BREAKFAST = "Breakfast"
+        private const val CATEGORY_LUNCH = "Lunch"
+        private const val CATEGORY_BEVERAGES = "Beverages"
+        private const val CATEGORY_SNACKS = "Snacks"
+    }
 
     override fun attachBaseContext(newBase: Context) {
         val languageCode = LocaleHelper.getLanguage(newBase)
@@ -35,11 +50,32 @@ class CustomerMenuActivity : AppCompatActivity() {
         binding = ActivityCustomerMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Remember which language this activity was created with
+        currentLanguageCode = LocaleHelper.getLanguage(this)
+
         setupWelcomeMessage()
         setupCategoryButtons()
         setupBottomNavigation()
+        setupInitialCategoryTitle()
         loadMenuItems(currentCategory)
+        highlightActiveTab(binding.tabMenu)
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        // If language changed since this screen was created, recreate to reload resources
+        val langNow = LocaleHelper.getLanguage(this)
+        if (currentLanguageCode != null && currentLanguageCode != langNow) {
+            currentLanguageCode = langNow
+            recreate()
+            return
+        }
+
+        highlightActiveTab(binding.tabMenu)
+    }
+
+    // region Setup UI
 
     private fun setupWelcomeMessage() {
         val userId = firebaseManager.getCurrentUserId()
@@ -47,8 +83,13 @@ class CustomerMenuActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 val user = firebaseManager.getUser(userId)
                 if (user != null) {
-                    val firstName = user.name.split(" ").firstOrNull() ?: "there"
-                    binding.tvWelcomeMessage.text = "${getString(R.string.welcome_back)}, $firstName!"
+                    val firstName = user.name.split(" ").firstOrNull()
+                        ?: getString(R.string.welcome_name_fallback)
+                    // Example: "Welcome back, Dani!"
+                    binding.tvWelcomeMessage.text =
+                        getString(R.string.welcome_back_with_name, firstName)
+                } else {
+                    binding.tvWelcomeMessage.text = getString(R.string.welcome_back)
                 }
             }
         } else {
@@ -56,32 +97,57 @@ class CustomerMenuActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupInitialCategoryTitle() {
+        // Default category title: e.g. "Breakfast Menu"
+        val categoryTitle = getString(R.string.breakfast)
+        binding.tvCategoryTitle.text =
+            getString(R.string.category_menu_title, categoryTitle)
+        // Item count starts from XML as @string/zero_items
+    }
+
     private fun setupCategoryButtons() {
-        // Breakfast Category
         binding.cardBreakfast.setOnClickListener {
-            selectCategory("Breakfast", binding.cardBreakfast)
+            selectCategory(CATEGORY_BREAKFAST, binding.cardBreakfast)
         }
 
-        // Lunch Category
         binding.cardLunch.setOnClickListener {
-            selectCategory("Lunch", binding.cardLunch)
+            selectCategory(CATEGORY_LUNCH, binding.cardLunch)
         }
 
-        // Beverages Category
         binding.cardBeverages.setOnClickListener {
-            selectCategory("Beverages", binding.cardBeverages)
+            selectCategory(CATEGORY_BEVERAGES, binding.cardBeverages)
         }
 
-        // Snacks Category
         binding.cardSnacks.setOnClickListener {
-            selectCategory("Snacks", binding.cardSnacks)
+            selectCategory(CATEGORY_SNACKS, binding.cardSnacks)
         }
 
-        // Cart Button - NOW FUNCTIONAL
         binding.btnCart.setOnClickListener {
             showCartDialog()
         }
     }
+
+    private fun setupBottomNavigation() {
+        binding.tabMenu.setOnClickListener {
+            // Already here, could scroll to top if you want
+        }
+
+        binding.tabOrders.setOnClickListener {
+            startActivity(Intent(this, OrdersActivity::class.java))
+        }
+
+        binding.tabAlerts.setOnClickListener {
+            startActivity(Intent(this, AlertsActivity::class.java))
+        }
+
+        binding.tabSettings.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+    }
+
+    // endregion
+
+    // region Cart dialog
 
     private fun showCartDialog() {
         val dialogBinding = DialogCartBinding.inflate(layoutInflater)
@@ -95,33 +161,32 @@ class CustomerMenuActivity : AppCompatActivity() {
             val cartItems = CartManager.getItems()
 
             if (cartItems.isEmpty()) {
-                // Show empty state
                 dialogBinding.layoutEmpty.visibility = View.VISIBLE
                 dialogBinding.layoutFilled.visibility = View.GONE
                 dialogBinding.badgeCount.visibility = View.GONE
             } else {
-                // Show filled state
                 dialogBinding.layoutEmpty.visibility = View.GONE
                 dialogBinding.layoutFilled.visibility = View.VISIBLE
                 dialogBinding.badgeCount.visibility = View.VISIBLE
 
-                // Update badge count
                 dialogBinding.badgeCount.text = CartManager.getItemCount().toString()
 
-                // Update summary
-                dialogBinding.tvSubtotal.text = "R%.2f".format(CartManager.getSubtotal())
-                dialogBinding.tvFee.text = "R%.2f".format(CartManager.getServiceFee())
-                dialogBinding.tvTotal.text = "R%.2f".format(CartManager.getTotal())
+                dialogBinding.tvSubtotal.text =
+                    getString(R.string.cart_currency_format, CartManager.getSubtotal())
+                dialogBinding.tvFee.text =
+                    getString(R.string.cart_currency_format, CartManager.getServiceFee())
+                dialogBinding.tvTotal.text =
+                    getString(R.string.cart_currency_format, CartManager.getTotal())
 
-                // Update checkout button text
-                dialogBinding.btnCheckout.text = "Proceed to Payment - R%.2f".format(CartManager.getTotal())
+                dialogBinding.btnCheckout.text = getString(
+                    R.string.cart_proceed_to_payment_with_total,
+                    CartManager.getTotal()
+                )
 
-                // Update adapter
                 (dialogBinding.recyclerCart.adapter as? CartAdapter)?.updateItems(cartItems)
             }
         }
 
-        // Setup RecyclerView
         val adapter = CartAdapter(CartManager.getItems()) {
             updateCartUI()
         }
@@ -129,68 +194,48 @@ class CustomerMenuActivity : AppCompatActivity() {
         dialogBinding.recyclerCart.layoutManager = LinearLayoutManager(this)
         dialogBinding.recyclerCart.adapter = adapter
 
-        // Close button
         dialogBinding.btnClose.setOnClickListener {
             dialog.dismiss()
         }
 
-        // Checkout button
         dialogBinding.btnCheckout.setOnClickListener {
-            // TODO: Navigate to payment/checkout
-            Toast.makeText(this, "Proceeding to payment...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                getString(R.string.cart_proceeding_to_payment_toast),
+                Toast.LENGTH_SHORT
+            ).show()
+            // TODO: navigate to payment screen later
             dialog.dismiss()
         }
 
-        // Initial UI update
         updateCartUI()
-
         dialog.show()
     }
 
-    private fun setupBottomNavigation() {
-        // Menu Tab (current activity - do nothing or refresh)
-        binding.tabMenu.setOnClickListener {
-            // Already on menu, optionally refresh
-        }
+    // endregion
 
-        // Orders Tab
-        binding.tabOrders.setOnClickListener {
-            startActivity(Intent(this, OrdersActivity::class.java))
-        }
+    // region Categories and menu data
 
-        // Alerts Tab
-        binding.tabAlerts.setOnClickListener {
-            startActivity(Intent(this, AlertsActivity::class.java))
-        }
-
-        // Settings Tab
-        binding.tabSettings.setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
-        }
-    }
-
-    private fun selectCategory(category: String, selectedCard: com.google.android.material.card.MaterialCardView) {
+    private fun selectCategory(category: String, selectedCard: MaterialCardView) {
         currentCategory = category
 
-        // Reset all category cards to default state
         resetCategoryCards()
 
-        // Highlight selected category
         selectedCard.setCardBackgroundColor(getColor(R.color.category_selected_bg))
         selectedCard.strokeColor = getColor(R.color.category_selected_stroke)
         selectedCard.strokeWidth = 4
 
-        // Update category title with translated category name
         val categoryTitle = when (category) {
-            "Breakfast" -> getString(R.string.breakfast)
-            "Lunch" -> getString(R.string.lunch)
-            "Beverages" -> getString(R.string.beverages)
-            "Snacks" -> getString(R.string.snacks)
+            CATEGORY_BREAKFAST -> getString(R.string.breakfast)
+            CATEGORY_LUNCH -> getString(R.string.lunch)
+            CATEGORY_BEVERAGES -> getString(R.string.beverages)
+            CATEGORY_SNACKS -> getString(R.string.snacks)
             else -> category
         }
-        binding.tvCategoryTitle.text = "$categoryTitle ${getString(R.string.menu)}"
 
-        // Load menu items for selected category
+        binding.tvCategoryTitle.text =
+            getString(R.string.category_menu_title, categoryTitle)
+
         loadMenuItems(category)
     }
 
@@ -226,9 +271,17 @@ class CustomerMenuActivity : AppCompatActivity() {
                 showMenuItems(filteredItems)
             }
 
-            // Update item count with translated text
-            val itemsText = if (filteredItems.size == 1) "item" else "items"
-            binding.tvItemCount.text = "${filteredItems.size} $itemsText"
+            val itemsText = if (filteredItems.size == 1) {
+                getString(R.string.item_singular)
+            } else {
+                getString(R.string.item_plural)
+            }
+
+            binding.tvItemCount.text = getString(
+                R.string.item_count_format,
+                filteredItems.size,
+                itemsText
+            )
         }
     }
 
@@ -241,23 +294,18 @@ class CustomerMenuActivity : AppCompatActivity() {
         binding.recyclerMenuItems.visibility = View.VISIBLE
         binding.layoutEmptyMenu.visibility = View.GONE
 
-        // Setup RecyclerView (you'll need to create an adapter)
         binding.recyclerMenuItems.layoutManager = LinearLayoutManager(this)
-        // binding.recyclerMenuItems.adapter = MenuItemAdapter(items) // Implement adapter
+        // TODO: attach your real adapter here
+        // binding.recyclerMenuItems.adapter = MenuItemAdapter(items)
     }
 
-    override fun onResume() {
-        super.onResume()
-        // Highlight Menu tab as active
-        highlightActiveTab(binding.tabMenu)
-    }
+    // endregion
 
-    private fun highlightActiveTab(activeTab: android.widget.LinearLayout) {
-        // Reset all tabs
+    // region Bottom nav highlighting
+
+    private fun highlightActiveTab(activeTab: LinearLayout) {
         resetTabColors()
-
-        // Highlight active tab
-        val textView = activeTab.getChildAt(1) as android.widget.TextView
+        val textView = activeTab.getChildAt(1) as TextView
         textView.setTextColor(getColor(R.color.tab_active))
         textView.textSize = 12f
         textView.setTypeface(null, android.graphics.Typeface.BOLD)
@@ -266,16 +314,11 @@ class CustomerMenuActivity : AppCompatActivity() {
     private fun resetTabColors() {
         val inactiveColor = getColor(R.color.tab_inactive)
 
-        // Menu tab
-        (binding.tabMenu.getChildAt(1) as android.widget.TextView).setTextColor(inactiveColor)
-
-        // Orders tab
-        (binding.tabOrders.getChildAt(1) as android.widget.TextView).setTextColor(inactiveColor)
-
-        // Alerts tab
-        (binding.tabAlerts.getChildAt(1) as android.widget.TextView).setTextColor(inactiveColor)
-
-        // Settings tab
-        (binding.tabSettings.getChildAt(1) as android.widget.TextView).setTextColor(inactiveColor)
+        (binding.tabMenu.getChildAt(1) as TextView).setTextColor(inactiveColor)
+        (binding.tabOrders.getChildAt(1) as TextView).setTextColor(inactiveColor)
+        (binding.tabAlerts.getChildAt(1) as TextView).setTextColor(inactiveColor)
+        (binding.tabSettings.getChildAt(1) as TextView).setTextColor(inactiveColor)
     }
+
+    // endregion
 }
