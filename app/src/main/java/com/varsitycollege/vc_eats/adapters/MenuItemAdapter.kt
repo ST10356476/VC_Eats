@@ -5,15 +5,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.varsitycollege.vc_eats.R
 import com.varsitycollege.vc_eats.models.MenuItem
+import com.varsitycollege.vc_eats.utils.CartManager
 
 class MenuItemAdapter(
     private val items: List<MenuItem>,
     private val onViewClick: (MenuItem) -> Unit,
     private val onEditClick: (MenuItem) -> Unit,
-    private val onDeleteClick: (MenuItem) -> Unit
+    private val onDeleteClick: (MenuItem) -> Unit,
+    private val onCartUpdated: () -> Unit  // <-- add this
 ) : RecyclerView.Adapter<MenuItemAdapter.MenuViewHolder>() {
 
     inner class MenuViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -33,10 +36,18 @@ class MenuItemAdapter(
         val item = items[position]
         holder.tvName.text = item.name
         holder.tvPrice.text = "R%.2f".format(item.price)
+
         holder.btnView.setOnClickListener { onViewClick(item) }
         holder.btnEdit.setOnClickListener { onEditClick(item) }
         holder.btnDelete.setOnClickListener { onDeleteClick(item) }
+
+        // Example: if adding to cart inside adapter
+        holder.itemView.setOnClickListener {
+            CartManager.addItem(item)
+            onCartUpdated()  // <-- notify activity to refresh cart
+        }
     }
 
     override fun getItemCount(): Int = items.size
 }
+

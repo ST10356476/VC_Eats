@@ -1,4 +1,6 @@
-package com.varsitycollege.vc_eats.models
+package com.varsitycollege.vc_eats.viewmodels
+
+import com.varsitycollege.vc_eats.models.MenuItem
 
 data class CartItem(
     val menuItem: MenuItem,

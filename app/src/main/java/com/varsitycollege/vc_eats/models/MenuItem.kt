@@ -1,5 +1,7 @@
 package com.varsitycollege.vc_eats.models
 
+import android.R
+
 data class MenuItem(
     var id: String = "",
     var name: String = "",
@@ -10,9 +12,9 @@ data class MenuItem(
     var isSpecial: Boolean = false,
     var allergens: List<String> = emptyList(),
     var imageUrl: String = "",
-    var createdAt: Long = 0L,
-    var updatedAt: Long = 0L
+    var createdAt: String = "",
+    var updatedAt: String = ""
 ) {
     // No-argument constructor for Firebase
-    constructor() : this("", "", "", 0.0, "", true, false, emptyList(), "", 0L, 0L)
+    constructor() : this("", "", "", 0.0, "", true, false, emptyList(), ""  )
 }

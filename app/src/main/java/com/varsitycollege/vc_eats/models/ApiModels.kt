@@ -14,6 +14,12 @@ data class OrderRequest(
     val specialInstructions: String = ""
 )
 
+data class OrdersResponse(
+    val success: Boolean,
+    val message: String,
+    val data: List<Order>
+)
+
 data class LoginResponse(
     val success: Boolean,
     val message: String,
@@ -23,4 +29,14 @@ data class LoginResponse(
 data class LoginData(
     val user: User,
     val token: String
+)
+
+data class MenuResponse(
+    val success: Boolean,
+    val count: Int,
+    val data: MenuData
+)
+
+data class MenuData(
+    val menuItems: List<MenuItem>
 )

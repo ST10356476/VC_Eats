@@ -8,34 +8,37 @@ interface ApiService {
 
     // Authentication
     @POST("auth/register")
-    suspend fun register(@Body request: RegisterRequest): Response<LoginResponse>
+    suspend fun register(@Body request: RegisterRequest): Response<ApiResponse<LoginData>>
 
     @POST("auth/login")
-    suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
+    suspend fun login(@Body request: LoginRequest): Response<ApiResponse<LoginData>>
 
     @GET("auth/me")
-    suspend fun getCurrentUser(@Header("Authorization") token: String): Response<User>
+    suspend fun getCurrentUser(@Header("Authorization") token: String): Response<ApiResponse<User>>
 
     // Menu
     @GET("menu")
-    suspend fun getMenuItems(@Header("Authorization") token: String): Response<List<MenuItem>>
+    suspend fun getMenuItems(@Header("Authorization") token: String): Response<MenuResponse>
 
     @GET("menu/{id}")
     suspend fun getMenuItemById(
         @Header("Authorization") token: String,
         @Path("id") itemId: String
-    ): Response<MenuItem>
+    ): Response<ApiResponse<MenuItem>>
 
     @GET("menu/categories")
-    suspend fun getCategories(@Header("Authorization") token: String): Response<List<String>>
+    suspend fun getCategories(@Header("Authorization") token: String): Response<ApiResponse<List<String>>>
 
     // Orders
     @POST("orders")
     suspend fun createOrder(
         @Header("Authorization") token: String,
         @Body request: OrderRequest
-    ): Response<Order>
+    ): Response<ApiResponse<Order>>
 
     @GET("orders/my-orders")
-    suspend fun getUserOrders(@Header("Authorization") token: String): Response<List<Order>>
+    suspend fun getUserOrders(
+        @Header("Authorization") token: String
+    ): Response<OrdersResponse>
+
 }

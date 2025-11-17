@@ -389,8 +389,7 @@ class MenuManagementActivity : AppCompatActivity() {
             isSpecial = switchSpecialItem.isChecked,
             allergens = selectedAllergens.toList(),
             imageUrl = imageUrl,
-            createdAt = System.currentTimeMillis(),
-            updatedAt = System.currentTimeMillis()
+
         )
 
         menuRef.child(itemId).setValue(item)

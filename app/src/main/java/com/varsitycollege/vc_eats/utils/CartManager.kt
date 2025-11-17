@@ -1,6 +1,6 @@
 package com.varsitycollege.vc_eats.utils
 
-import com.varsitycollege.vc_eats.models.CartItem
+import com.varsitycollege.vc_eats.viewmodels.CartItem
 import com.varsitycollege.vc_eats.models.MenuItem
 
 object CartManager {

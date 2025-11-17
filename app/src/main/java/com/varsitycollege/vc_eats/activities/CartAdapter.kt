@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.varsitycollege.vc_eats.databinding.ItemCartBinding
-import com.varsitycollege.vc_eats.models.CartItem
+import com.varsitycollege.vc_eats.viewmodels.CartItem
 import com.varsitycollege.vc_eats.utils.CartManager
 
 class CartAdapter(

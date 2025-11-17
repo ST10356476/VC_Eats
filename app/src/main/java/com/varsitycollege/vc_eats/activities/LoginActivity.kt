@@ -59,14 +59,18 @@ class LoginActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val response = RetrofitClient.apiService.login(LoginRequest(email, password))
+
                 if (response.isSuccessful) {
                     val body = response.body()
-                    if (body != null) {
-                        TokenManager.saveToken(body.data.token) // Use data.token
-                        navigateBasedOnRole(body.data.user.role) // Use data.user.role
-                    }
-                    else {
-                        Toast.makeText(this@LoginActivity, "Invalid response", Toast.LENGTH_SHORT).show()
+
+                    if (body != null && body.success) {
+                        // Save token
+                        TokenManager.saveToken(body.data.token)
+
+                        // Navigate based on role
+                        navigateBasedOnRole(body.data.user.role)
+                    } else {
+                        Toast.makeText(this@LoginActivity, "Login failed: ${body?.message}", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     Toast.makeText(this@LoginActivity, "Login failed: ${response.code()}", Toast.LENGTH_SHORT).show()
@@ -83,6 +87,7 @@ class LoginActivity : AppCompatActivity() {
             "STAFF", "ADMIN" -> Intent(this, StaffDashboardActivity::class.java)
             else -> Intent(this, CustomerMenuActivity::class.java)
         }
+
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()
