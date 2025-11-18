@@ -22,17 +22,25 @@ import kotlinx.coroutines.launch
 class CustomerMenuActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCustomerMenuBinding
-    private var menuItems: List<MenuItem> = emptyList()
+    private var menuItems: List<MenuItem> = emptyList() // List to hold menu items
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Inflate the layout using ViewBinding
         binding = ActivityCustomerMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Setup bottom navigation clicks
         setupBottomNavigation()
+
+        // Load menu items from API
         loadMenuItems()
     }
 
+    /**
+     * Loads menu items from API using the stored token
+     */
     private fun loadMenuItems() {
         val token = TokenManager.getToken()
         if (token == null) {
@@ -56,53 +64,69 @@ class CustomerMenuActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Display menu items in RecyclerView
+     */
     private fun displayMenuItems(items: List<MenuItem>) {
         if (items.isEmpty()) {
-            binding.recyclerMenuItems.visibility = android.view.View.GONE
-            binding.layoutEmptyMenu.visibility = android.view.View.VISIBLE
+            // Show empty layout if no menu items
+            binding.recyclerMenuItems.visibility = View.GONE
+            binding.layoutEmptyMenu.visibility = View.VISIBLE
             return
         }
 
-        binding.recyclerMenuItems.visibility = android.view.View.VISIBLE
-        binding.layoutEmptyMenu.visibility = android.view.View.GONE
+        binding.recyclerMenuItems.visibility = View.VISIBLE
+        binding.layoutEmptyMenu.visibility = View.GONE
 
+        // Initialize adapter with callbacks
         val adapter = MenuItemAdapter(
             menuItems,
-            onViewClick = { /* handle view */ },
-            onEditClick = { /* handle edit */ },
-            onDeleteClick = { /* handle delete */ },
+            onViewClick = { /* handle view item */ },
+            onEditClick = { /* handle edit item */ },
+            onDeleteClick = { /* handle delete item */ },
             onCartUpdated = { updateCartDialog(DialogCartBinding.inflate(LayoutInflater.from(this))) }
         )
 
         binding.recyclerMenuItems.adapter = adapter
         binding.recyclerMenuItems.layoutManager = LinearLayoutManager(this)
 
-        // Add click to open cart
+        // Cart button click to open cart dialog
         binding.btnCart.setOnClickListener { showCartDialog() }
     }
 
+    /**
+     * Shows cart in a BottomSheetDialog
+     */
     private fun showCartDialog() {
         val dialogBinding = DialogCartBinding.inflate(layoutInflater)
         val dialog = BottomSheetDialog(this)
         dialog.setContentView(dialogBinding.root)
 
+        // Setup cart RecyclerView
         val cartAdapter = CartAdapter(CartManager.getItems()) {
-            updateCartDialog(dialogBinding) // update totals
+            updateCartDialog(dialogBinding) // Update totals when cart changes
         }
 
         dialogBinding.recyclerCart.adapter = cartAdapter
         dialogBinding.recyclerCart.layoutManager = LinearLayoutManager(this)
 
+        // Close cart
         dialogBinding.btnClose.setOnClickListener { dialog.dismiss() }
+
+        // Checkout button
         dialogBinding.btnCheckout.setOnClickListener {
             Toast.makeText(this, "Proceeding to payment: R%.2f".format(CartManager.getTotal()), Toast.LENGTH_SHORT).show()
+            // TODO: Navigate to payment flow
         }
 
-        updateCartDialog(dialogBinding)
+        updateCartDialog(dialogBinding) // Initialize totals
 
         dialog.show()
     }
 
+    /**
+     * Updates cart dialog totals and visibility
+     */
     private fun updateCartDialog(binding: DialogCartBinding) {
         val items = CartManager.getItems()
         binding.layoutEmpty.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
@@ -113,7 +137,9 @@ class CustomerMenuActivity : AppCompatActivity() {
         binding.tvTotal.text = "R%.2f".format(CartManager.getTotal())
     }
 
-
+    /**
+     * Sets up bottom navigation click listeners
+     */
     private fun setupBottomNavigation() {
         binding.tabMenu.setOnClickListener {
             // Already in Menu, maybe highlight it

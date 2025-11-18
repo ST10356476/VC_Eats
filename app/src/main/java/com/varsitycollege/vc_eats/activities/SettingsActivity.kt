@@ -4,19 +4,21 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.lifecycleScope
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.varsitycollege.vc_eats.databinding.ActivitySettingsBinding
-import com.varsitycollege.vc_eats.firebase.FirebaseManager
 import com.varsitycollege.vc_eats.utils.LocaleHelper
-import kotlinx.coroutines.launch
+import com.varsitycollege.vc_eats.utils.TokenManager
 
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingsBinding
-    private val firebaseManager = FirebaseManager.getInstance()
+    private lateinit var firebaseAuth: FirebaseAuth  // Firebase Authentication instance
+    private lateinit var firestore: FirebaseFirestore  // Firebase Firestore instance
 
+    // Attach base context to apply the selected language using LocaleHelper
     override fun attachBaseContext(newBase: Context) {
         val languageCode = LocaleHelper.getLanguage(newBase)
         val context = LocaleHelper.setLocale(newBase, languageCode)
@@ -25,79 +27,103 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Inflate the layout using ViewBinding
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupToolbar()
-        loadUserFromFirebase()
-        setupClickListeners()
-        loadUserPreferences()
+        // Initialize Firebase Auth and Firestore
+        firebaseAuth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
+        setupToolbar()         // Setup top toolbar
+        loadUserFromFirebase() // Load user data from Firebase
+        setupClickListeners()  // Setup all button/switch click listeners
+        loadUserPreferences()  // Load local user preferences (switch states, language)
     }
 
+    /**
+     * Sets up toolbar with back button and title
+     */
     private fun setupToolbar() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.title = getString(R.string.settings)
-        binding.toolbar.setNavigationOnClickListener {
-            finish()
-        }
+        binding.toolbar.setNavigationOnClickListener { finish() }
     }
 
+    /**
+     * Load user info from Firebase Firestore
+     * If user is not logged in, navigate to login
+     */
     private fun loadUserFromFirebase() {
-        val userId = firebaseManager.getCurrentUserId()
-
-        if (userId == null) {
+        val uid = firebaseAuth.currentUser?.uid
+        if (uid == null) {
             Toast.makeText(this, getString(R.string.user_not_logged_in), Toast.LENGTH_SHORT).show()
             navigateToLogin()
             return
         }
 
-        lifecycleScope.launch {
-            val user = firebaseManager.getUser(userId)
-            if (user != null) {
-                val sharedPref = getSharedPreferences("UserPrefs", MODE_PRIVATE)
-                with(sharedPref.edit()) {
-                    putString("user_id", user.id)
-                    putString("user_name", user.name)
-                    putString("user_email", user.email)
-                    putString("user_role", user.role)
-                    putString("profile_image_url", user.profileImageUrl)
-                    apply()
-                }
+        // Fetch user document from "users" collection
+        firestore.collection("users").document(uid).get()
+            .addOnSuccessListener { doc ->
+                if (doc.exists()) {
+                    val email = doc.getString("email") ?: "N/A"
+                    val role = doc.getString("role") ?: "N/A"
+                    val userId = uid
 
-                setupUserProfile(user.name, user.email, userId)
-            } else {
-                Toast.makeText(this@SettingsActivity, getString(R.string.failed_load_user_data), Toast.LENGTH_SHORT).show()
+                    // Display user info on UI
+                    setupUserProfile(email, email, userId)
+                } else {
+                    // Document does not exist
+                    Toast.makeText(this, getString(R.string.user_not_logged_in), Toast.LENGTH_SHORT).show()
+                    navigateToLogin()
+                }
             }
-        }
+            .addOnFailureListener {
+                // Firestore fetch failed
+                Toast.makeText(this, "Failed to load user profile", Toast.LENGTH_SHORT).show()
+                navigateToLogin()
+            }
     }
 
+    /**
+     * Sets the user's profile info (name, email, user ID, initials) on the UI
+     */
     private fun setupUserProfile(userName: String, userEmail: String, userId: String) {
         binding.tvUserName.text = userName
         binding.tvUserEmail.text = userEmail
-        binding.chipStudentId.text = "User ID: ${userId.take(10)}..."
+        binding.chipStudentId.text = "User ID: ${userId.take(10)}..." // Display first 10 chars of UID
 
+        // Generate initials from userName
         val initials = userName.split(" ")
             .mapNotNull { it.firstOrNull()?.toString() }
             .take(2)
             .joinToString("")
             .uppercase()
+
         binding.tvUserInitials.text = initials
     }
 
+    /**
+     * Sets up click listeners for profile info, switches, language card, and sign out
+     */
     private fun setupClickListeners() {
+        // Open Profile Information screen
         binding.cardProfileInfo.setOnClickListener {
             val intent = Intent(this, ProfileInformationActivity::class.java)
-            startActivityForResult(intent, PROFILE_UPDATE_REQUEST)
+            startActivity(intent)
         }
 
+        // Biometric switch toggle
         binding.switchBiometric.setOnCheckedChangeListener { _, isChecked ->
             saveBooleanPreference("biometric_enabled", isChecked)
             val message = if (isChecked) getString(R.string.biometric_enabled) else getString(R.string.biometric_disabled)
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
 
+        // Other switches for order updates, promotions, daily specials, push notifications
         binding.switchOrderUpdates.setOnCheckedChangeListener { _, isChecked ->
             saveBooleanPreference("order_updates", isChecked)
         }
@@ -114,21 +140,27 @@ class SettingsActivity : AppCompatActivity() {
             saveBooleanPreference("push_notifications", isChecked)
         }
 
+        // Open language selection dialog
         binding.cardLanguage.setOnClickListener {
             showLanguageDialog()
         }
 
+        // Offline mode toggle
         binding.switchOfflineMode.setOnCheckedChangeListener { _, isChecked ->
             saveBooleanPreference("offline_mode", isChecked)
             val message = if (isChecked) getString(R.string.offline_mode_enabled) else getString(R.string.offline_mode_disabled)
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
 
+        // Sign out button
         binding.btnSignOut.setOnClickListener {
             showSignOutDialog()
         }
     }
 
+    /**
+     * Load saved switch states and language from SharedPreferences
+     */
     private fun loadUserPreferences() {
         val sharedPref = getSharedPreferences("UserPrefs", MODE_PRIVATE)
 
@@ -140,10 +172,12 @@ class SettingsActivity : AppCompatActivity() {
         binding.switchOfflineMode.isChecked = sharedPref.getBoolean("offline_mode", false)
 
         val languageCode = LocaleHelper.getLanguage(this)
-        val languageName = LocaleHelper.getLanguageName(languageCode)
-        binding.tvSelectedLanguage.text = languageName
+        binding.tvSelectedLanguage.text = LocaleHelper.getLanguageName(languageCode)
     }
 
+    /**
+     * Save boolean preference to SharedPreferences
+     */
     private fun saveBooleanPreference(key: String, value: Boolean) {
         val sharedPref = getSharedPreferences("UserPrefs", MODE_PRIVATE)
         with(sharedPref.edit()) {
@@ -152,6 +186,9 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Show language selection dialog
+     */
     private fun showLanguageDialog() {
         val languages = arrayOf("English", "Afrikaans", "Zulu", "Xhosa")
         val currentLanguageCode = LocaleHelper.getLanguage(this)
@@ -164,10 +201,8 @@ class SettingsActivity : AppCompatActivity() {
                 val selectedLanguage = languages[which]
                 val languageCode = LocaleHelper.getLanguageCode(selectedLanguage)
 
-                // Save language preference
                 LocaleHelper.setLocale(this, languageCode)
 
-                // Show toast with selected language
                 Toast.makeText(
                     this,
                     getString(R.string.language_changed, selectedLanguage),
@@ -175,9 +210,7 @@ class SettingsActivity : AppCompatActivity() {
                 ).show()
 
                 dialog.dismiss()
-
-                // Restart activity to apply language change
-                recreateActivity()
+                recreateActivity() // Recreate activity to apply new language
             }
             .setNegativeButton(getString(R.string.cancel), null)
             .show()
@@ -189,6 +222,9 @@ class SettingsActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    /**
+     * Show confirmation dialog before signing out
+     */
     private fun showSignOutDialog() {
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.sign_out_title))
@@ -200,8 +236,16 @@ class SettingsActivity : AppCompatActivity() {
             .show()
     }
 
+    /**
+     * Sign out user:
+     * - Clear API token
+     * - Sign out from Firebase
+     * - Clear SharedPreferences
+     * - Navigate to login screen
+     */
     private fun signOut() {
-        firebaseManager.signOut()
+        TokenManager.clearToken()     // Clear API token
+        firebaseAuth.signOut()         // Sign out from Firebase
 
         val sharedPref = getSharedPreferences("UserPrefs", MODE_PRIVATE)
         with(sharedPref.edit()) {
@@ -212,21 +256,13 @@ class SettingsActivity : AppCompatActivity() {
         navigateToLogin()
     }
 
+    /**
+     * Navigate user to login activity and clear backstack
+     */
     private fun navigateToLogin() {
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PROFILE_UPDATE_REQUEST && resultCode == RESULT_OK) {
-            loadUserFromFirebase()
-        }
-    }
-
-    companion object {
-        private const val PROFILE_UPDATE_REQUEST = 1001
     }
 }

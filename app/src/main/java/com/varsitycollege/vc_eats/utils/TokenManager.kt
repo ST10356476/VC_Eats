@@ -17,4 +17,8 @@ object TokenManager {
     }
 
     fun getToken(): String? = prefs.getString(KEY_TOKEN, null)
+
+    fun clearToken() {
+        prefs.edit().remove(KEY_TOKEN).apply()
+    }
 }
